@@ -2,11 +2,15 @@ Package: statexams
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(person(given = "Kristyn",
+           family = "Pantoja",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "kristynp@stat.tamu.edu"),
+      person(given = "James",
+           family = "Dole",
+           role = c("aut", "cre"),
+           email = "jimdole87@gmail.com"))
+Description: Make exams!
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
