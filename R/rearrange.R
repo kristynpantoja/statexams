@@ -4,11 +4,10 @@ rearrange = function(x){
   #put checks here
   num_ques = length(x)
   ind = sample(num_ques)
-  reorder_ans = list(NA)
+  reorder_ans = x
   for(i in 1:num_ques){
     num_ans = length(x[[i]]) #technically number of answers + 1
     ind_ans = sample(2:num_ans)
-    reorder_ans[[i]] = x[[i]][1]
     for(j in 2:num_ans){
       reorder_ans[[i]][j] = x[[i]][ind_ans[j - 1]]
     }
