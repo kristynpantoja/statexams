@@ -6,5 +6,8 @@ test = readtext("sample question.txt", dvsep = "\t")
 dim(test)
 test[1, 2]
 
-class(test)
+class(test[1, 2])
 print(test)
+
+strsplit("Hello,\tWorld!", "\t")
+strsplit(test[1, 2], "\t")
