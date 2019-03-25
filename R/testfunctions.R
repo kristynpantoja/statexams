@@ -61,3 +61,24 @@ question_contents_as_list = strsplit(contents_as_string, split = "\\tQ|\\tA") # 
 question_contents = question_contents_as_list[[1]] # now it's a vector
 
 question_contents # look at it. works!
+
+
+
+
+# --- Now want to try some kind of output --- #
+
+a = paste(question_contents, collapse = " ")
+
+# sinking to a pdf does NOT work!
+sink("testoutput.txt", append=FALSE, split=FALSE)
+a
+sink()
+
+
+
+
+
+
+
+
+
