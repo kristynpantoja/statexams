@@ -19,4 +19,6 @@ rearrange = function(x){
   return(reorder_x)
 }
 
-rearrange(x)
+xre = rearrange(x)
+
+xre_unlist = unlist(xre)
