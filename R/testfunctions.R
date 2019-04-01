@@ -75,7 +75,7 @@ a
 sink()
 
 
-
+# consider: https://stackoverflow.com/questions/14796501/is-it-possible-to-call-external-r-script-from-r-markdown-rmd-in-rstudio/14796502#14796502
 
 
 
