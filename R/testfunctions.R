@@ -1,4 +1,10 @@
 library(readtext)
+source("R/statexamsFunctions.R")
+
+####################################################
+# Trying Things Here
+####################################################
+
 
 ## Import the data: sample question.txt
 
@@ -71,11 +77,24 @@ a = paste(question_contents, collapse = " ")
 
 # sinking to a pdf does NOT work!
 sink("testoutput.txt", append=FALSE, split=FALSE)
-a
+test
 sink()
 
 
 # consider: https://stackoverflow.com/questions/14796501/is-it-possible-to-call-external-r-script-from-r-markdown-rmd-in-rstudio/14796502#14796502
+
+
+
+
+
+####################################################
+# Testing Functions Here
+####################################################
+source("R/statexamsFunctions.R")
+test2 = paste("hi", "\n", "there!", collapse = "", sep = "")
+test2
+export_txt(test2, "test.txt")
+
 
 
 

@@ -27,14 +27,11 @@ import_questions = function(file){
 
 
 # export a string as contents of a txt file called filename (should have .txt extension)
+# note: it interprets special characters (e.g. "\n"), unless you put an extra backslash in front.
 export_txt = function(contents, filename){
-  sink(filename, append=FALSE, split=FALSE)
-  contents
-  sink()
-  return()
+  file_connection  = file(filename)
+  writeLines(contents, file_connection)
+  close(file_connection)
+  return("exported txt file")
 }
-
-
-
-
 
