@@ -1,7 +1,7 @@
 
 # --- Functions --- #
 
-import_question(file){
+import_question = function(file){
   # 1. read in the file. it has 2 parts: the name of the file, and the text inside the file.
   readin_question = readtext::readtext(file, dvsep = "\t")
   # 2. get the long string of question and answers components, i.e. the text inside the file.
@@ -18,7 +18,7 @@ import_question(file){
 
 
 # [TO DO] write import_questions() function
-import_questions(file){
+import_questions = function(file){
   # make a list of questions
   list_of_questions_contents = list()
   # something goes here, using import_question()
@@ -27,10 +27,11 @@ import_questions(file){
 
 
 # export a string as contents of a txt file called filename (should have .txt extension)
-export_txt(contents, filename){
+export_txt = function(contents, filename){
   sink(filename, append=FALSE, split=FALSE)
   contents
   sink()
+  return()
 }
 
 
