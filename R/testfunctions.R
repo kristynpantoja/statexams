@@ -1,9 +1,9 @@
 library(readtext)
 source("R/statexamsFunctions.R")
 
-####################################################
-# Trying Things Here
-####################################################
+#####################################################
+# Trying Things Here : Importing & Exporting Things #
+#####################################################
 
 
 ## Import the data: sample question.txt
@@ -84,16 +84,86 @@ sink()
 # consider: https://stackoverflow.com/questions/14796501/is-it-possible-to-call-external-r-script-from-r-markdown-rmd-in-rstudio/14796502#14796502
 
 
+######################################################
+# Trying Things Here : Normal Distribution Questions #
+######################################################
+
+## Normal computation-type questions
+
+## The function:
+# normal_distribution_question()
+# arguments:
+# variable = "X" (the variable, optional)
+# mean = 0 (mu, optional)
+# sd = 1 (sigma, optional)
+# interval = c(a, b) OR a OR b if it's a tail probability
+# tail = NULL, but can be "l" / "left" / 0 OR "r" / "right" / 1
+#         (only required if interval is a OR b)
+
+# Cleaning up arguments and error-catching
+if(length(interval) = 1 & is.null(tail)) stop("Need to specify type of tail probability")
+if(!is.null(tail)){
+  if(tail == "l" | tail == "left") tail = 0
+  if(tail == "r" | tail == "right") tail = 1
+}
+
+## Set up the question
+
+base_component1 = "is normally distributed with mean"
+base_component2 = "and standard deviation"
+base_component3 = ". What is the probability that "
+context_component1 = paste(variable,
+                base_component1, mean,
+                base_component2, sd,
+                base_component3)
+context_component2 = ""
+
+# Question for Left-tail probabilities
+if(length(interval) == 1 & tail == 0){
+  base_component4 = " is less than "
+  context_component2 = paste(variable, base_component4, interval, "?")
+}
+
+# Question for Right-tail probabilities
+if(length(interval) == 1 & tail == 1){
+  base_component4 = " is greater than "
+  context_component2 = paste(variable, base_component4, interval, "?")
+}
+
+
+# Question for interval probabilities
+if(length(interval) == 2){
+  base_component4 = " is between "
+  base_component5 = " and "
+  context_component2 = paste(variable, interval[1], base_component4,
+                             base_component5, interval[2], "?")
+}
+
+## Making the answers:
 
 
 
 ####################################################
 # Testing Functions Here
 ####################################################
+
+
+#######################
+# Output Testing Here #
+#######################
+
 source("R/statexamsFunctions.R")
 test2 = paste("hi", "\n", "there!", collapse = "", sep = "")
 test2
 export_txt(test2, "test.txt")
+
+#question1 = call_some_function_from_statexams_here
+
+#question2 = call_some_function_from_statexams_here
+
+#...
+
+#test_components = some_function_that_outputs_test_and_testsolutions_here
 
 
 
