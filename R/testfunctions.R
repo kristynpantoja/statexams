@@ -153,7 +153,7 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
   }
   if(is.null(tail)) tail = 2
 
-  answers = vector("answer1" = NA, "answer2" = NA)
+  answers = vector("correct_answer" = NA, "incorrect_answer" = NA, "incorrect_answer" = NA, "incorrect_answer" = NA, "incorrect_answer" = NA)
 
   # Answers for Left-tail probabilities
   if(length(interval) == 1 & tail == 0){
