@@ -16,7 +16,6 @@ import_question = function(file){
   return(question_contents)
 }
 
-
 # [TO DO] write import_questions() function
 import_questions = function(file){
   # make a list of questions

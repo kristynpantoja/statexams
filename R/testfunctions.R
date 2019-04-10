@@ -9,7 +9,6 @@ source("R/statexamsFunctions.R")
 ## Import the data: sample question.txt
 
 test = readtext("sample question.txt", dvsep = "\t")
-?readtext
 dim(test)
 test[1, 2]
 
@@ -100,46 +99,92 @@ sink()
 # tail = NULL, but can be "l" / "left" / 0 OR "r" / "right" / 1
 #         (only required if interval is a OR b)
 
-# Cleaning up arguments and error-catching
-if(length(interval) = 1 & is.null(tail)) stop("Need to specify type of tail probability")
-if(!is.null(tail)){
-  if(tail == "l" | tail == "left") tail = 0
-  if(tail == "r" | tail == "right") tail = 1
+makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+  # Cleaning up arguments and error-catching
+  if(length(interval) == 1 & is.null(tail)) stop("Need to specify type of tail probability")
+  if(!is.null(tail)){
+    if(tail == "l" | tail == "left") tail = 0
+    else if(tail == "r" | tail == "right") tail = 1
+    else stop("Need to specify a valid type of tail probability: left or right")
+  }
+  if(is.null(tail)) tail = 2
+
+  base_component1 = " is normally distributed with mean "
+  base_component2 = " and standard deviation "
+  base_component3 = ". What is the probability that "
+  context_component1 = paste(variable, base_component1, mean, base_component2, sd, base_component3, sep = "")
+
+  context_component2 = ""
+  # Question for Left-tail probabilities
+  if(length(interval) == 1 & tail == 0){
+    base_component4 = " is less than "
+    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+  }
+
+  # Question for Right-tail probabilities
+  if(length(interval) == 1 & tail == 1){
+    base_component4 = " is greater than "
+    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+  }
+
+  # Question for interval probabilities
+  if(length(interval) == 2){
+    base_component4 = " is between "
+    base_component5 = " and "
+    context_component2 = paste(variable, base_component4, interval[1],
+                               base_component5, interval[2], "?", sep = "")
+  }
+
+  question = paste(context_component1, context_component2, sep = "")
+  return(question)
 }
 
-## Set up the question
-
-base_component1 = "is normally distributed with mean"
-base_component2 = "and standard deviation"
-base_component3 = ". What is the probability that "
-context_component1 = paste(variable,
-                base_component1, mean,
-                base_component2, sd,
-                base_component3)
-context_component2 = ""
-
-# Question for Left-tail probabilities
-if(length(interval) == 1 & tail == 0){
-  base_component4 = " is less than "
-  context_component2 = paste(variable, base_component4, interval, "?")
-}
-
-# Question for Right-tail probabilities
-if(length(interval) == 1 & tail == 1){
-  base_component4 = " is greater than "
-  context_component2 = paste(variable, base_component4, interval, "?")
-}
-
-
-# Question for interval probabilities
-if(length(interval) == 2){
-  base_component4 = " is between "
-  base_component5 = " and "
-  context_component2 = paste(variable, interval[1], base_component4,
-                             base_component5, interval[2], "?")
-}
+makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 
 ## Making the answers:
+
+makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+  # Cleaning up arguments and error-catching
+  if(length(interval) == 1 & is.null(tail)) stop("Need to specify type of tail probability")
+  if(!is.null(tail)){
+    if(tail == "l" | tail == "left") tail = 0
+    else if(tail == "r" | tail == "right") tail = 1
+    else stop("Need to specify a valid type of tail probability: left or right")
+  }
+  if(is.null(tail)) tail = 2
+
+  answers = vector("answer1" = NA, "answer2" = NA)
+
+  # Answers for Left-tail probabilities
+  if(length(interval) == 1 & tail == 0){
+    base_component4 = " is less than "
+    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+  }
+
+  # Answers for Right-tail probabilities
+  if(length(interval) == 1 & tail == 1){
+    base_component4 = " is greater than "
+    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+  }
+
+  # Answers for interval probabilities
+  if(length(interval) == 2){
+    base_component4 = " is between "
+    base_component5 = " and "
+    context_component2 = paste(variable, base_component4, interval[1],
+                               base_component5, interval[2], "?", sep = "")
+  }
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
