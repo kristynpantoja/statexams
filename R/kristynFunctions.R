@@ -39,6 +39,8 @@ export_txt = function(contents, filename){
 
 makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   # Cleaning up arguments and error-catching
+  if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
+  if(length(interval) == 2) if(interval[1] <= interval[2]) stop("for interval = (a, b), b must be greater than a")
   if(length(interval) == 1 & is.null(tail)) stop("Need to specify type of tail probability")
   if(!is.null(tail)){
     if(tail == "l" | tail == "left") tail = 0
@@ -78,6 +80,8 @@ makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail 
 }
 
 # add makeAnswers_normal
+
+
 
 # add generate_normal
 
