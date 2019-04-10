@@ -5,7 +5,7 @@ generate_probability_rules = function(special = NULL){
     prob_a_un_b = sample(seq(prob_a, 0.9, 0.1))
     prob_b = prob_a_un_b - prob_a
     prob_a_int_b = 0
-    (return(c(prob_a, prob_b, prob_a_int_b, prob_a_un_b)))
+    return(c(prob_a, prob_b, prob_a_int_b, prob_a_un_b))
   }
   tenths = seq(0.2, 0.9, 0.1)
   prob_a = sample(tenths, 1)
@@ -110,7 +110,26 @@ makeQA_eventprob = function(type = NULL){
     }
     return(list(question, answers))
   }
+  if(type == 3){
+    checkques = 0
+    while(checkques == 0){
+      probs = generate_probability_rules(2)
+      question = paste("The probability of A is ", probs[1],
+                       ".  The probability of B is ", probs[2],
+                       ".  A and B are mutually exclusive.  What is the probability of at least A or B occurring?", sep = "")
+      ans1 = probs[1] + probs[2]
+      ans2 = abs(probs[1] - probs[2])
+      ans3 = probs[3]
+      ans4 = probs[4]
+      ans5 = 1 - probs[4]
+      answers = c(ans1, ans2, ans3, ans4, ans5)
+      if(length(unique(answers)) == 5){
+        checkques = 1
+      }
+    }
+    return(list(question, answers))
+  }
 }
 
-test = makeQA_eventprob(2)
+test = makeQA_eventprob(3)
 test
