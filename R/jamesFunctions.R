@@ -31,7 +31,7 @@ generate_probability_rules = function(special = NULL){
 }
 
 
-makeQuestion_eventprob = function(type = NULL){
+makeQA_eventprob = function(type = NULL){
   if(is.null(type)){
   type = sample(1:2,1)
   }
@@ -112,5 +112,5 @@ makeQuestion_eventprob = function(type = NULL){
   }
 }
 
-test = makeQuestion_eventprob(2)
+test = makeQA_eventprob(2)
 test
