@@ -101,60 +101,7 @@ sink()
 
 makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 
-## Making the answers:
-
-makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
-
-  # Create answer choices
-  answers = rep(NA, 4)
-  if(length(interval) == 1){
-    # left tail probability
-    answers[1] = pnorm(q = interval[1], mean, sd)
-    # right tail probability
-    answers[2] = pnorm(q = interval[1], mean, sd, lower.tail = FALSE)
-    # z-score
-    answers[3] = (interval[1] - mean) / sigma
-    # negative z-score
-    answers[4] = - answers[3]
-  }
-  if(length(interval) == 2){
-    # correct answer: P(X < b) - P(X < a)
-    labeled_answers[1] = pnorm(q = interval[2], mean, sd) - pnorm(q = interval[1], mean, sd)
-    # incorrect answers:
-    # positive difference between z-scores
-    labeled_answers[2] = abs((interval[1] - mean) / sigma - (interval[2] - mean) / sigma)
-    # P(X < a) - P(X > b)
-    labeled_answers[3] = pnorm(q = interval[1], mean, sd) - pnorm(q = interval[1], mean, sd, lower.tail = FALSE)
-    # sum of tail probabilities
-    labeled_answers[4] = pnorm(q = interval[1], mean, sd) + pnorm(q = interval[2], mean, sd, lower.tail = FALSE)
-  }
-
-
-  # Output list where 1st element is correct answer
-  labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA, "incorrect_answer4" = NA)
-
-  # For Left-tail probabilities
-  if(length(interval) == 1 & tail == 0){
-    base_component4 = " is less than "
-    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
-  }
-
-  # For Left-tail probabilities
-  if(length(interval) == 1 & tail == 1){
-    base_component4 = " is greater than "
-    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
-  }
-
-  # For interval probabilities
-  if(length(interval) == 2){
-    base_component4 = " is between "
-    base_component5 = " and "
-    context_component2 = paste(variable, base_component4, interval[1],
-                               base_component5, interval[2], "?", sep = "")
-  }
-
-}
-
+makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 
 
 
