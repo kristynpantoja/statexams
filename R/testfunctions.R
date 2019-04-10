@@ -84,7 +84,7 @@ sink()
 
 
 ######################################################
-# Trying Things Here : Normal Distribution Questions #
+# Normal Distribution Questions Testing Here #
 ######################################################
 
 ## Normal computation-type questions
@@ -102,20 +102,6 @@ sink()
 makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 
 makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
-
-
-
-
-
-
-
-
-
-
-
-####################################################
-# Testing Functions Here
-####################################################
 
 
 #######################

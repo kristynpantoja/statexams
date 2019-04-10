@@ -141,7 +141,12 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 }
 
 
-# add generate_normal
+# add makeQA_normal
+makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+  question = makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  answers = makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  return(list(question, answers))
+}
 
 
 
