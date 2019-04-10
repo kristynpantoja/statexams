@@ -97,7 +97,7 @@ makeQA_eventprob = function(type = NULL){
       question = paste("The probability of A is ", probs[1],
             ".  The probability of B is ", probs[2],
             ".  The probability of A and B both occuring is ", probs[3],
-            ".  What is the probability of at least A or B occurring?", sep = "")
+            ".  What is the probability of A or B occurring?", sep = "")
       ans1 = probs[4]
       ans2 = abs(probs[1] - probs[2])
       ans3 = probs[3]
@@ -116,7 +116,7 @@ makeQA_eventprob = function(type = NULL){
       probs = generate_probability_rules(2)
       question = paste("The probability of A is ", probs[1],
                        ".  The probability of B is ", probs[2],
-                       ".  A and B are mutually exclusive.  What is the probability of at least A or B occurring?", sep = "")
+                       ".  A and B are mutually exclusive.  What is the probability of either A or B occurring?", sep = "")
       ans1 = probs[1] + probs[2]
       ans2 = abs(probs[1] - probs[2])
       ans3 = probs[3]
