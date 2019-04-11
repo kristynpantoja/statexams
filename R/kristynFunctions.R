@@ -143,8 +143,8 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 }
 
 makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
-  question = makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
-  answers = makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  question = makeQuestion_normal(variable, mean, sd, interval, tail)
+  answers = makeAnswers_normal(variable, mean, sd, interval, tail)
   return(list(question, answers))
 }
 
@@ -215,28 +215,28 @@ makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, indiv
 
   # correct answer
   correct_MoE = c(-z_crit * se, z_crit * se)
-  labeled_answers[[1]] = phat + correct_MoE
+  labeled_answers[[1]] = round(phat + correct_MoE, 3)
 
   # incorrect answer: incorrect standard error
   incorrect_MoE1 = c(-z_crit * incorrect_se, z_crit * incorrect_se)
-  labeled_answers[[2]] = phat + incorrect_MoE1
+  labeled_answers[[2]] = round(phat + incorrect_MoE1, 3)
 
   # incorrect answer: incorrect critical z value
   incorrect_MoE2 = c(-incorrect_z_crit * se, incorrect_z_crit * se)
-  labeled_answers[[3]] = phat + incorrect_MoE2
+  labeled_answers[[3]] = round(phat + incorrect_MoE2, 3)
 
   # incorrect answer: other incorrect standard error
   incorrect_MoE3 = c(-z_crit * incorrect_se2, z_crit * incorrect_se2)
-  labeled_answers[[4]] = phat + incorrect_MoE3
+  labeled_answers[[4]] = round(phat + incorrect_MoE3, 3)
 
   return(labeled_answers)
 }
 
 makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
-  question = makeQuestion_CIprop(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
-                                 question = NULL, answer = "no")
-  answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
-                               question = NULL, answer = "no")
+  question = makeQuestion_CIprop(n , numPositive, C = 0.95, population, individuals,
+                                 question, answer)
+  answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
+                               question, answer)
   return(list(question, answers))
 }
