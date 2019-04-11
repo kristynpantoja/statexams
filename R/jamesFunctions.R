@@ -32,6 +32,7 @@ generate_probability_rules = function(special = NULL){
 
 
 makeQA_eventprob = function(type = NULL){
+  #type = 1 gives independence.  2 gives no assumptions.  3 gives mutually exclusive
   if(is.null(type)){
   type = sample(1:2,1)
   }
@@ -131,5 +132,73 @@ makeQA_eventprob = function(type = NULL){
   }
 }
 
-test = makeQA_eventprob(3)
-test
+
+makeQA_ExpectedValue = function(prob = NULL, values = NULL){
+  if(is.null(prob) & is.null(values)){
+    n = sample(3:5, 1)
+  }
+  else if(is.null(prob) | is.null(values)){
+    n1 = length(prob)
+    n2 = length(values)
+    n = n1 + n2
+  }
+  else{
+    if(length(prob) != length(values)){
+      stop("prob and values lengths do not agree")
+    }
+    n = length(prob)
+  }
+  if(!is.null(prob) & sum(prob) != 1){
+    stop("prob must sum to 1 or be null")
+  }
+  if(!is.null(prob) & (sum(prob < 0) != 0)){
+    stop("prob must be positive")
+  }
+  if(is.null(values)){
+    values = sample(1:20, n)
+    values = sort(values)
+  }
+  if(is.null(prob)){
+    checkques = 0
+    while(checkques == 0){
+      prob = rep(0, n)
+      sticks = sample((25:90)/100, n-1 , replace = T)
+      remainprob = 100
+      for(i in 1:(n-1)){
+        prob[i] = floor(remainprob * sticks[i])
+        remainprob = remainprob - prob[i]
+      }
+      prob[n] = remainprob
+      prob = prob/100
+      question = ""
+      for(i in 1:n){
+      question = paste(question, "f(", values[i], ") = ", prob[i], ".  ", sep = "")
+      }
+      question = paste(question, "What is the expected value of X?", sep = "")
+      ans1 = round(sum(values * prob), 3)
+      ans2 = round(sum(values), 3)
+      ans3 = round(sum(values + prob), 3)
+      ans4 = round(prod(values + prob), 3)
+      ans5 = round(mean(values))
+      answers = c(ans1, ans2, ans3, ans4, ans5)
+      if(length(unique(answers)) == 5){
+        checkques = 1
+        }
+      }
+    return(list(question, answers))
+    }
+  else{
+    question = ""
+    for(i in 1:n){
+      question = paste(question, "f(", values[i], ") = ", prob[i], ".  ", sep = "")
+    }
+    question = paste(question, "What is the expected value of X?", sep = "")
+    ans1 = round(sum(values * prob), 3)
+    ans2 = round(sum(values), 3)
+    ans3 = round(sum(values + prob), 3)
+    ans4 = round(prod(values + prob), 3)
+    ans5 = round(mean(values))
+    answers = c(ans1, ans2, ans3, ans4, ans5)
+    return(list(question, answers))
+  }
+}
