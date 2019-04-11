@@ -202,3 +202,14 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
     return(list(question, answers))
   }
 }
+
+exptest = makeQA_ExpectedValue()
+exptest
+
+
+# makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL){
+#   if(!is.null(type)){
+#     type = sample(1:2, 1)
+#   }
+# }
+
