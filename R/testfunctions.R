@@ -104,11 +104,51 @@ makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval = c(0, 1))
 
 
+######################################################
+# Confidence Interval Questions Testing Here #
+######################################################
+
+makeQuestion_CIprop(n = 10, numPositive = 4, C = 0.97, population = 100, individuals = "individuals",
+  question = NULL, answer = "no")
+
+makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+                              question = NULL, answer = "no"){
+  labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
+  # correct values
+  phat = numPositive / n
+  se = sqrt(phat * (1 - phat) / n)
+  z_crit = qnorm(C + (1 - C) / 2)
+  # incorrect values
+  incorrect_se = sqrt(phat * (1 - phat)) / n
+  incorrect_se2 = phat * (1 - phat) / n
+  incorrect_z_crit = qnorm(C) # forget to add the tail
+
+  # correct answer
+  correct_MoE = c(-z_crit * se, z_crit * se)
+  labeled_answers[[1]] = phat + correct_MoE
+
+  # incorrect answer: incorrect standard error
+  incorrect_MoE1 = c(-z_crit * incorrect_se, z_crit * incorrect_se)
+  labeled_answers[[2]] = phat + incorrect_MoE1
+
+  # incorrect answer: incorrect critical z value
+  incorrect_MoE2 = c(-incorrect_z_crit * se, incorrect_z_crit * se)
+  labeled_answers[[3]] = phat + incorrect_MoE2
+
+  # incorrect answer: other incorrect standard error
+  incorrect_MoE3 = c(-z_crit * incorrect_se2, z_crit * incorrect_se2)
+  labeled_answers[[4]] = phat + incorrect_MoE3
+
+  return(labeled_answers)
+}
+
+makeAnswers_CIprop(n = 10, numPositive = 4, C = 0.97, population = 100, individuals = "individuals",
+                    question = NULL, answer = "no")
+
 #######################
 # Output Testing Here #
 #######################
 
-source("R/statexamsFunctions.R")
 test2 = paste("hi", "\n", "there!", collapse = "", sep = "")
 test2
 export_txt(test2, "test.txt")

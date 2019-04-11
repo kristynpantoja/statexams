@@ -39,6 +39,7 @@ export_txt = function(contents, filename){
 
 makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   # Cleaning up arguments and error-catching
+  if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
   if(length(interval) == 2) if(interval[1] >= interval[2]) stop("for interval = (a, b), b must be greater than a")
   if(length(interval) == 1 & is.null(tail)) stop("Need to specify type of tail probability")
@@ -49,28 +50,28 @@ makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail 
   }
   if(is.null(tail)) tail = 2
 
-  base_component1 = " is normally distributed with mean "
-  base_component2 = " and standard deviation "
-  base_component3 = ". What is the probability that "
-  context_component1 = paste(variable, base_component1, mean, base_component2, sd, base_component3, sep = "")
+  component1 = " is normally distributed with mean "
+  component2 = " and standard deviation "
+  component3 = ". What is the probability that "
+  context_component1 = paste(variable, component1, mean, component2, sd, component3, sep = "")
 
   context_component2 = ""
   # Question for Left-tail probabilities
   if(length(interval) == 1 & tail == 0){
-    base_component4 = " is less than "
+    component4 = " is less than "
     context_component2 = paste(variable, base_component4, interval, "?", sep = "")
   }
 
   # Question for Right-tail probabilities
   if(length(interval) == 1 & tail == 1){
-    base_component4 = " is greater than "
+    component4 = " is greater than "
     context_component2 = paste(variable, base_component4, interval, "?", sep = "")
   }
 
   # Question for interval probabilities
   if(length(interval) == 2){
-    base_component4 = " is between "
-    base_component5 = " and "
+    component4 = " is between "
+    component5 = " and "
     context_component2 = paste(variable, base_component4, interval[1],
                                base_component5, interval[2], "?", sep = "")
   }
@@ -81,6 +82,7 @@ makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail 
 
 makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   # Cleaning up arguments and error-catching
+  if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
   if(length(interval) == 2) if(interval[1] >= interval[2]) stop("for interval = (a, b), b must be greater than a")
   if(length(interval) == 1 & is.null(tail)) stop("Need to specify type of tail probability")
@@ -140,8 +142,6 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
   return(labeled_answers)
 }
 
-
-# add makeQA_normal
 makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   question = makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
   answers = makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
@@ -150,7 +150,88 @@ makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL
 
 
 
+# --- Functions for Creating Questions for Confidence Intervals for Proportions --- #
+
+makeQuestion_CIprop = function(n, numPositive, C = 0.95, population = NULL, individuals = "individuals",
+                               question = NULL, answer = NULL){
+  # error checking
+
+  # the set-up
+  component1 = "In a random sample of "
+  # individuals
+  component2 = paste(" ", individuals, sep = "")
+  # out of a population
+  component3 = ""
+  if(is.null(population)) component3 = ", "
+  else component3 = paste(" from a population of size ", population, ", ", sep = "")
+  context_component1 = paste(component1, n, component2, component3, sep = "")
+
+  # answer to the question
+  context_component2 = ""
+  component10 = ""
+  # question == NULL, answer == NULL : numPositive " of them resulted in a success."
+  if(is.null(question) & is.null(answer)){
+    context_component2 = paste(numPositive, " of them resulted in a success.", sep = "")
+    component10 = " that resulted in a success?"
+  }
+  # question == NULL, answer != NULL : numPositive " responded " answer "to a question."
+  if(is.null(question) & !is.null(answer)){
+    context_component2 = paste(numPositive, " responded: \'", answer, "\' to a question.", sep = "")
+    component10 = paste(" who responded \'", answer, "\'?", sep = "")
+  }
+  # question != NULL, answer == NULL : numPositive " responded favorably to the question, " question
+  if(!is.null(question) & is.null(answer)){
+    context_component2 = paste(numPositive, " responded favorably to the question: \'", question, "\'", sep = "")
+    component10 = " who responded favorably?"
+  }
+  # question != NULL, answer != NULL : numPositive " responded " answer " to the question, " question
+  if(!is.null(question) & !is.null(answer)){
+    context_component2 = paste(numPositive, " responded: \'", answer, "\' to the question: \'", question,"\'", sep = "")
+    component10 = paste(" who responded \'", answer, "\'?", sep = "")
+  }
+
+  # confidence interval question
+  context_component3 = paste(" What is the ", C*100, "% confidence interval for the proportion of ",
+                             individuals, component10, sep = "")
+  question = paste(context_component1, context_component2, context_component3, sep = "")
+  return(question)
+}
 
 
+makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+                              question = NULL, answer = "no"){
+  labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
+  # correct values
+  phat = numPositive / n
+  se = sqrt(phat * (1 - phat) / n)
+  z_crit = qnorm(C + (1 - C) / 2)
+  # incorrect values
+  incorrect_se = sqrt(phat * (1 - phat)) / n
+  incorrect_se2 = phat * (1 - phat) / n
+  incorrect_z_crit = qnorm(C) # forget to add the tail
 
+  # correct answer
+  correct_MoE = c(-z_crit * se, z_crit * se)
+  labeled_answers[[1]] = phat + correct_MoE
 
+  # incorrect answer: incorrect standard error
+  incorrect_MoE1 = c(-z_crit * incorrect_se, z_crit * incorrect_se)
+  labeled_answers[[2]] = phat + incorrect_MoE1
+
+  # incorrect answer: incorrect critical z value
+  incorrect_MoE2 = c(-incorrect_z_crit * se, incorrect_z_crit * se)
+  labeled_answers[[3]] = phat + incorrect_MoE2
+
+  # incorrect answer: other incorrect standard error
+  incorrect_MoE3 = c(-z_crit * incorrect_se2, z_crit * incorrect_se2)
+  labeled_answers[[4]] = phat + incorrect_MoE3
+
+  return(labeled_answers)
+}
+
+makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+                         question = NULL, answer = "no"){
+  question = makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  answers = makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  return(list(question, answers))
+}
