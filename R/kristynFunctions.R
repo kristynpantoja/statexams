@@ -232,6 +232,6 @@ makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, indiv
 makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
   question = makeQuestion_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
-  answers = makeAnswers_normal(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  answers = makeAnswers_CIprop(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
   return(list(question, answers))
 }
