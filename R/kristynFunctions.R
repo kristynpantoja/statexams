@@ -155,6 +155,9 @@ makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL
 makeQuestion_CIprop = function(n, numPositive, C = 0.95, population = NULL, individuals = "individuals",
                                question = NULL, answer = NULL){
   # error checking
+  # check if n, numPositive, population (if given) are all integers
+  if(n %% 1 != 0) stop("n is not an integer")
+  if(numPositive %% 1 != 0) stop("n is not an integer")
 
   # the set-up
   component1 = "In a random sample of "
@@ -231,7 +234,9 @@ makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, indiv
 
 makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
-  question = makeQuestion_CIprop(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
-  answers = makeAnswers_CIprop(variable = "X", mean = 0, sd = 1, interval, tail = NULL)
+  question = makeQuestion_CIprop(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+                                 question = NULL, answer = "no")
+  answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+                               question = NULL, answer = "no")
   return(list(question, answers))
 }
