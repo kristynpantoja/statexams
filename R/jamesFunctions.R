@@ -193,23 +193,43 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
       question = paste(question, "f(", values[i], ") = ", prob[i], ".  ", sep = "")
     }
     question = paste(question, "What is the expected value of X?", sep = "")
-    ans1 = round(sum(values * prob), 3)
-    ans2 = round(sum(values), 3)
-    ans3 = round(sum(values + prob), 3)
-    ans4 = round(prod(values + prob), 3)
-    ans5 = round(mean(values))
+    ans1 = round(sum(values * prob), 3) #right
+    ans2 = round(sum(values), 3) #only summing the values
+    ans3 = round(sum(values + prob), 3) #adding values and prob
+    ans4 = round(prod(values + prob), 3) #product of (values + prob)
+    ans5 = round(mean(values)) #ignores probability and treats like sample mean
     answers = c(ans1, ans2, ans3, ans4, ans5)
     return(list(question, answers))
   }
 }
 
-exptest = makeQA_ExpectedValue()
-exptest
 
 
-# makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL){
-#   if(!is.null(type)){
-#     type = sample(1:2, 1)
-#   }
-# }
+
+makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL, n = NULL, mu_0 = NULL){
+  if(is.null(sigma)){
+    sigma = sample(seq(0, 5, 0.1), 1)
+  }
+  if(is.null(n)){
+    n = sample(30:100, 1)
+  }
+  if(is.null(type)){
+    type = sample(1:3, 1)
+  }
+  if(is.null(mu_0)){
+    mu_0 = sample(seq(-10, 10, 0.1),1)
+  }
+  if(type == 0){ #1 sided, H_a <
+   reject = sample(c(0,1), 1)
+   error = runif(1, -.2, .2)
+   Xbar = round(mu_0 - (qt(0.975, n-1) + error + 0.5*reject)*sigma/n, 3)
+  }
+  question = paste("H_0: mu = ", mu_0,"; H_a = mu < ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
+                   ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
+  yesno = c("no", "yes")
+  ans1 = yesno[reject + 1]
+  ans2 = yesno[-(reject + 1)]
+  answers = c(ans1, ans2)
+  return(list(question, answers))
+}
 
