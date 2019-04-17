@@ -217,12 +217,17 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     type = sample(1:3, 1)
   }
   if(is.null(mu_0)){
-    mu_0 = sample(seq(-10, 10, 0.1),1)
+    mu_0 = round(sample(seq(-10, 10, 0.1),1),2)
   }
   if(type == 0){ #1 sided, H_a <
-    reject = sample(c(0,1), 1)
-     error = runif(1, -.2, .2)
-     Xbar = round(mu_0 - (qt(0.975, n-1) + error + 0.5*reject)*sigma/n, 3)
+    if(is.null(Xbar)){
+     reject = sample(c(0,1), 1)
+       error = runif(1, -.2, .2)
+      Xbar = round(mu_0 - (qt(1 - level, n-1) + error + 0.5*reject)*sigma/n, 3)
+      }
+    else{
+        reject = Xbar <= mu_0 - qt(1 - level, n-1)*sigma/n
+      }
 
     question = paste("H_0: mu = ", mu_0,"; H_a = mu < ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
                    ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
@@ -233,9 +238,14 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     return(list(question, answers))
   }
   if(type == 1){ #1 sided, H_a >
-    reject = sample(c(0,1), 1)
-    error = runif(1, -.2, .2)
-    Xbar = round(mu_0 + (qt(0.975, n-1) + error + 0.5*reject)*sigma/n, 3)
+    if(is.null(Xbar)){
+      reject = sample(c(0,1), 1)
+      error = runif(1, -.2, .2)
+      Xbar = round(mu_0 + (qt(1 - level, n-1) + error + 0.5*reject)*sigma/n, 3)
+    }
+    else{
+      reject = Xbar >= mu_0 - qt(1 - level, n-1)*sigma/n
+    }
 
     question = paste("H_0: mu = ", mu_0,"; H_a = mu > ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
                      ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
@@ -247,4 +257,4 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
   }
 }
 
-hyptest = makeQA_HypothesisTest(type = 1)
+hyptest = makeQA_HypothesisTest(type = 1, Xbar = 5)
