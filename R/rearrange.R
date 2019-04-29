@@ -4,6 +4,10 @@ rearrange = function(x){
 
 
   num_ques = length(x)
+  correct = ""
+  for(i in 1:num_ques){
+    correct[i] = x[[i]][2]
+  }
   QA = rep(NA, num_ques)
   for(i in 1:num_ques){
     QA[i] = length(x[[i]]) # number of answers +1 per question
@@ -21,13 +25,25 @@ rearrange = function(x){
   }
   reorder_x = list(NA)
   reorder_QA = rep(NA, num_ques)
+  reorder_correct = ""
   for(i in 1:num_ques){
     reorder_x[i] = reorder_ans[ind[i]]
     reorder_QA[i] = QA[ind[i]]
+    reorder_correct[i] = correct[ind[i]]
+  }
+  letter_correct = rep(0, num_ques)
+  for(i in 1:num_ques){
+    letter_correct[i] = which(reorder_x[[i]] == reorder_correct[i])
+  }
+
+  letters = c("", "a", "b", "c", "d", "e", "f", "g")
+  letter_correct_out = ""
+  for(i in 1:num_ques){
+    letter_correct_out[i] = letters[letter_correct[i]]
   }
   #Output string of question and answer
   #Output number of elements per question(eg 1 question with 3 answers outputs 4)
-  return(list(reorder_x, reorder_QA))
+  return(list(reorder_x, letter_correct_out, reorder_correct, reorder_QA))
 }
 
 xre = rearrange(x)
