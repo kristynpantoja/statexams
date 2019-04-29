@@ -248,3 +248,35 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
 }
 
 hyptest = makeQA_HypothesisTest(type = 1)
+
+makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, type = NULL){
+  if(is.null(proportion) && is.null(condprob)){
+    proportion = rep(0, 3)
+    proportion[1] = sample(seq(0.1, 0.7, 0.1), 1)
+    proportion[2] = sample(seq(0.1, 1 - proportion[1] - 0.2, 0.1), 1)
+    proportion[3] = 1 - proportion[1] - proportion[2]
+  }
+  if(length(proportion) > 4 || length(condprob) >4){
+    stop("proportion or conditional probability vector too long")
+  }
+  if(is.null(proportion)){
+    n = length(condprob)
+    proportion = rep(0, n)
+    proportion[1] = sample(seq(0.1, 0.4, 0.1), 1)
+    probsum = proportion[1]
+    for(i in 2:{n-1}){
+      proportion[i] = sample(seq(0.1, 1 - probsum - 0.1*{3-i}, 0.1), 1)
+      probsum = probsum + proportion[i]
+    }
+    proportion[n] = 1 - probsum
+  }
+  if(is.null(condprob)){
+    condprob = round(runif(length(proportion), 0.2, 0.95), 2)
+  }
+  if(sum(condprob > 1) !=0 || sum(condprob < 0) !=0){
+    stop("Conditional probability outside valid domain.")
+  }
+  if(is.null(type)){
+    type = sample(1:2, 1)
+  }
+}
