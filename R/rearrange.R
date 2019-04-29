@@ -35,21 +35,21 @@ xre = rearrange(x)
 xre_unlist = unlist(xre[1])
 xre_unlist
 
-xre[2]
-recreation = function(x){
-  #totalout = "header stuff and question 1" FIX THIS
-  for(i in 2:length(x)){
-    check = suppressWarnings(as.numeric(substr(x[i], 1, 1)))
-    if(!is.na(check)){
-      #add \n \end{enumerate} before
-      #add \item before
-      # add \begin{enumerate} after
-    }
-    else{
-      #\item before
-      #line break after
-    }
-  }
-  #add \end{enumerate}x2 at end
-}
-as.numeric("$")
+# xre[2]
+# recreation = function(x){
+#   #totalout = "header stuff and question 1" FIX THIS
+#   for(i in 2:length(x)){
+#     check = suppressWarnings(as.numeric(substr(x[i], 1, 1)))
+#     if(!is.na(check)){
+#       #add \n \end{enumerate} before
+#       #add \item before
+#       # add \begin{enumerate} after
+#     }
+#     else{
+#       #\item before
+#       #line break after
+#     }
+#   }
+#   #add \end{enumerate}x2 at end
+# }
+# as.numeric("$")
