@@ -54,7 +54,7 @@ makeQA_eventprob = function(type = NULL){
           checkques = 1
         }
       }
-      return(list(question, answers))
+      return(c(question, answers))
     }
     if(type.2 ==2){
       while(checkques == 0){
@@ -71,7 +71,7 @@ makeQA_eventprob = function(type = NULL){
           checkques = 1
         }
       }
-      return(list(question, answers))
+      return(c(question, answers))
     }
     if(type.2 ==3){
       while(checkques == 0){
@@ -88,7 +88,7 @@ makeQA_eventprob = function(type = NULL){
           checkques = 1
         }
       }
-      return(list(question, answers))
+      return(c(question, answers))
     }
   }
   if(type == 2){
@@ -109,7 +109,7 @@ makeQA_eventprob = function(type = NULL){
         checkques = 1
       }
     }
-    return(list(question, answers))
+    return(c(question, answers))
   }
   if(type == 3){
     checkques = 0
@@ -128,7 +128,7 @@ makeQA_eventprob = function(type = NULL){
         checkques = 1
       }
     }
-    return(list(question, answers))
+    return(c(question, answers))
   }
 }
 
@@ -184,8 +184,8 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
       if(length(unique(answers)) == 5){
         checkques = 1
         }
-      }
-    return(list(question, answers))
+    }
+    return(c(question,answers))
     }
   else{
     question = ""
@@ -199,7 +199,7 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
     ans4 = round(prod(values + prob), 3) #product of (values + prob)
     ans5 = round(mean(values)) #ignores probability and treats like sample mean
     answers = c(ans1, ans2, ans3, ans4, ans5)
-    return(list(question, answers))
+    return(c(question,answers))
   }
 }
 
@@ -238,7 +238,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     ans1 = yesno[reject + 1]
     ans2 = yesno[-(reject + 1)]
     answers = c(ans1, ans2)
-    return(list(question, answers))
+    return(c(question, answers))
   }
   if(type == 1){ #1 sided, H_a >
     if(is.null(Xbar)){
@@ -256,7 +256,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     ans1 = yesno[reject + 1]
     ans2 = yesno[-(reject + 1)]
     answers = c(ans1, ans2)
-    return(list(question, answers))
+    return(c(question, answers))
   }
   if(type ==2){ #2 sided
     if(is.null(Xbar)){
@@ -274,7 +274,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     ans1 = yesno[reject + 1]
     ans2 = yesno[-(reject + 1)]
     answers = c(ans1, ans2)
-    return(list(question, answers))
+    return(c(question, answers))
   }
 }
 
@@ -323,7 +323,7 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
     ans4 = sum(condprob)
     ans5 = round(mean(proportion)*mean(condprob), 3)
     answers = c(ans1, ans2, ans3, ans4, ans5)
-    return(list(question, answers))
+    return(c(question, answers))
   }
   if(type == 2){
     question = paste("A company buys resistors from vendor companies A, B, and C.  ",
@@ -340,6 +340,6 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
     ans4 = round(mean(condprob), 3)
     ans5 = sum(condprob)
     answers = c(ans1, ans2, ans3, ans4, ans5)
-    return(list(question, answers))
+    return(c(question, answers))
   }
 }
