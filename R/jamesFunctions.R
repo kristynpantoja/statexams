@@ -256,9 +256,6 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
     proportion[2] = sample(seq(0.1, 1 - proportion[1] - 0.2, 0.1), 1)
     proportion[3] = 1 - proportion[1] - proportion[2]
   }
-  if(length(proportion) > 4 || length(condprob) >4){
-    stop("proportion or conditional probability vector too long")
-  }
   if(is.null(proportion)){
     n = length(condprob)
     proportion = rep(0, n)
@@ -276,7 +273,44 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   if(sum(condprob > 1) !=0 || sum(condprob < 0) !=0){
     stop("Conditional probability outside valid domain.")
   }
+  if(length(proportion) != 3 || length(condprob) != 3){
+    stop("proportion or conditional probability vector must be null or 3")
+  }
   if(is.null(type)){
     type = sample(1:2, 1)
+  }
+  if(type == 1){
+    question = paste("A company buys resistors from vendor companies A, B, and C.  ",
+                     100*proportion[1], "% come from company A  ",
+                     100*proportion[2], "% come from comapny B, and ",
+                     100*proportion[3], "% come from company C.  If a resistor comes from company A, there is a ",
+                     100*condprob[1], "% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
+                     100*condprob[2], "% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
+                     100*condprob[3], "% chance that it is within tolerance.  If a resistor is randomly sampled, what is the probability it is within tolerance?", sep = "")
+
+    ans1 = round(sum(proportion*condprob), 3)
+    ans2 = round(mean(condprob), 3)
+    ans3 = round(mean(proportion), 3)
+    ans4 = sum(condprob)
+    ans5 = round(mean(proportion)*mean(condprob), 3)
+    answers = c(ans1, ans2, ans3, ans4, ans5)
+    return(list(question, answers))
+  }
+  if(type == 2){
+    question = paste("A company buys resistors from vendor companies A, B, and C.  ",
+                     100*proportion[1], "% come from company A  ",
+                     100*proportion[2], "% come from comapny B, and ",
+                     100*proportion[3], "% come from company C.  If a resistor comes from company A, there is a ",
+                     100*condprob[1], "% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
+                     100*condprob[2], "% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
+                     100*condprob[3], "% chance that it is within tolerance.  If a randomly selected resistor is within tolerance, what is the probability it came from company A?", sep = "")
+
+    ans1 = round(proportion[1]*condprob[1] / sum(proportion*condprob), 3)
+    ans2 = condprob[1]
+    ans3 = sum(proportion*condprob)
+    ans4 = round(mean(condprob), 3)
+    ans5 = sum(condprob)
+    answers = c(ans1, ans2, ans3, ans4, ans5)
+    return(list(question, answers))
   }
 }
