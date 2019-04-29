@@ -27,18 +27,17 @@ process_question_contents = function(question_contents){
   question_contents = question_contents[-delete]
 
   # put together the question and answers (indicating which is the correct answer)
-  question_and_answers = list()
 
   # first non-empty element is the question
-  question_and_answers[[1]] = question_contents[1]
+  question_and_answers = question_contents[1]
 
   # find the correct answer, and put it last
   answers_vector = question_contents[-1]
   is_correct_answer = grepl('\\%ans$', answers_vector)
   incorrect_answers_indices = which(is_correct_answer == FALSE)
   correct_answer_index = which(is_correct_answer == TRUE)
-  answers = as.list(answers_vector[incorrect_answers_indices])
-  answers = append(answers_vector[correct_answer_index], answers)
+  answers = answers_vector[incorrect_answers_indices]
+  answers = c(answers_vector[correct_answer_index], answers)
   # name elements
   answers_names = c("correct_answer")
   for(i in 1:length(incorrect_answers_indices)){
@@ -47,7 +46,7 @@ process_question_contents = function(question_contents){
   }
   names(answers) = answers_names
 
-  question_and_answers[[2]] = answers
+  question_and_answers = c(question_and_answers, answers)
   return(question_and_answers)
 }
 
@@ -57,6 +56,17 @@ import_questions = function(file){
   list_of_questions_contents = list()
   # something goes here, using import_question()
   return(list_of_questions_contents)
+
+
+
+  readin_questions = readtext::readtext(file, dvsep = "\t")
+  contents_as_string = readin_questions[1, 2]
+  question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
+  # 4. grab the single element in the list, which is the vector
+  #     whose elements are the question followed by the answers
+  question_contents = question_contents_as_list[[1]]
+  # [TO DO] at some point, get rid of \n's
+  return(question_contents)
 }
 
 
@@ -184,8 +194,7 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   question = makeQuestion_normal(variable, mean, sd, interval, tail)
   answers = makeAnswers_normal(variable, mean, sd, interval, tail)
-  answers = as.list(answers)
-  return(list(question, answers))
+  return(c(question, as.character(answers)))
 }
 
 
@@ -281,7 +290,7 @@ makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individual
                                  question, answer)
   answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
                                question, answer)
-  return(list(question, as.list(answers)))
+  return(c(question, as.character(answers)))
 }
 
 
