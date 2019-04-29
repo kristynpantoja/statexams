@@ -7,7 +7,7 @@ source("R/rearrange.R")
 
 testquestion1 = makeQA_eventprob()
 testquestion2 = makeQA_ExpectedValue()
-testquestion3 = makeQA_HypothesisTest()
+testquestion3 = makeQA_ExpectedValue()
 
 test = list(testquestion1, testquestion2, testquestion3)
 testrearrange = rearrange(test)
