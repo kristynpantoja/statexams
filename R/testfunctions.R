@@ -30,20 +30,20 @@ length(question_contents)
 ## Import the data: sample question.txt
 
 readfile = readtext("samplequestionlabeledparts.txt", dvsep = "\t")
-# dim(test)
-# test[1, 1]
-# test[1, 2]
-
-class(test[1, 2])
-print(test)
 
 # this is what the data looks like, after being imported:
 # first element of test is the name of the txt file,
 # second element of test is the contents of the txt file (i.e. long string of question and answers)
+# dim(test)
+# readfile[1, 1] # this is the file name
+# readfile[1, 2] # this is the file contents
+# class(readfile[1, 2])
+print(readfile)
 
 # --- Testing things --- #
-question_contents_list = strsplit("\tQHello, this is a question.\tAAnd this is an answer.", split = "\\tQ|\\tA")
-
+question_contents_list = strsplit("\t*Q*Hello, this is a question.\t*A*And this is an answer.",
+                                  split = "\\t\\*Q\\*|\\t\\*A\\*")
+?strsplit
 # how to ignore empty-ish elements in the beginning? such as tabs or spaces...
 
 question_contents = question_contents_list[[1]] # add this as an element of the list of questions/answers
@@ -61,7 +61,7 @@ readfile = readtext("samplequestionlabeledparts.txt", dvsep = "\t")
 contents_as_string = readfile[1, 2]
 
 # 3. Split the big string into a vector that contains the Question and each Answer Choice as elements
-question_contents_as_list = strsplit(contents_as_string, split = "\\tQ|\\tA") # first it's a list
+question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
 
 question_contents = question_contents_as_list[[1]] # now it's a vector
 
@@ -128,6 +128,7 @@ export_txt(test2, "test.txt")
 #...
 
 #test_components = some_function_that_outputs_test_and_testsolutions_here
+
 
 
 

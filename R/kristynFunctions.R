@@ -1,4 +1,3 @@
-
 # --- Functions for Importing/Exporting to/from a .txt File --- #
 
 import_question = function(file){
@@ -14,6 +13,42 @@ import_question = function(file){
   question_contents = question_contents_as_list[[1]]
   # [TO DO] at some point, get rid of \n's
   return(question_contents)
+}
+
+
+process_question_contents = function(question_contents){
+  # get rid of empty elements
+  delete = c()
+  for(i in 1:length(question_contents)){
+    if(nchar(question_contents[i]) == 0){
+      delete = c(delete, i)
+    }
+  }
+  question_contents = question_contents[-delete]
+
+  # put together the question and answers (indicating which is the correct answer)
+  question_and_answers = list()
+
+  # first non-empty element is the question
+  question_and_answers[[1]] = question_contents[1]
+
+  # find the correct answer, and put it last
+  answers_vector = question_contents[-1]
+  is_correct_answer = grepl('\\%ans$', answers_vector)
+  incorrect_answers_indices = which(is_correct_answer == FALSE)
+  correct_answer_index = which(is_correct_answer == TRUE)
+  answers = as.list(answers_vector[incorrect_answers_indices])
+  answers = append(answers_vector[correct_answer_index], answers)
+  # name elements
+  answers_names = c()
+  for(i in 1:length(incorrect_answers_indices)){
+    answers_names[i] = paste("incorrect_answer", i, sep = "")
+  }
+  answers_names[length(answers_names) + 1] = "correct_answer"
+  names(answers) = answers_names
+
+  question_and_answers[[2]] = answers
+  return(question_and_answers)
 }
 
 # [TO DO] write import_questions() function
@@ -33,6 +68,10 @@ export_txt = function(contents, filename){
   close(file_connection)
   return("exported txt file")
 }
+
+
+
+
 
 
 # --- Functions for Creating Questions for Normal Distribution Calculations --- #
@@ -145,8 +184,12 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   question = makeQuestion_normal(variable, mean, sd, interval, tail)
   answers = makeAnswers_normal(variable, mean, sd, interval, tail)
+  answers = as.list(answers)
   return(list(question, answers))
 }
+
+
+
 
 
 
@@ -238,5 +281,12 @@ makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individual
                                  question, answer)
   answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
                                question, answer)
-  return(list(question, answers))
+  return(list(question, as.list(answers)))
 }
+
+
+
+
+
+
+
