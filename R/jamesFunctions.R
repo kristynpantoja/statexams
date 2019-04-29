@@ -217,7 +217,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     n = sample(30:100, 1)
   }
   if(is.null(type)){
-    type = sample(1:3, 1)
+    type = sample(0:2, 1)
   }
   if(is.null(mu_0)){
     mu_0 = round(sample(seq(-10, 10, 0.1),1),2)
