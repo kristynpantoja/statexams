@@ -40,11 +40,11 @@ process_question_contents = function(question_contents){
   answers = as.list(answers_vector[incorrect_answers_indices])
   answers = append(answers_vector[correct_answer_index], answers)
   # name elements
-  answers_names = c()
+  answers_names = c("correct_answer")
   for(i in 1:length(incorrect_answers_indices)){
-    answers_names[i] = paste("incorrect_answer", i, sep = "")
+    another_answer_name = paste("incorrect_answer", i, sep = "")
+    answers_names = c(answers_names, another_answer_name)
   }
-  answers_names[length(answers_names) + 1] = "correct_answer"
   names(answers) = answers_names
 
   question_and_answers[[2]] = answers
