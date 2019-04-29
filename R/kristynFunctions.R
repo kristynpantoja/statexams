@@ -7,7 +7,7 @@ import_question = function(file){
   contents_as_string = readin_question[1, 2]
   # 3. split the components into question and corresponding answers:
   #     output is it's a list (with one element)
-  question_contents_as_list = strsplit(contents_as_string, split = "\\tQ|\\tA")
+  question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
   # 4. grab the single element in the list, which is the vector
   #     whose elements are the question followed by the answers
   question_contents = question_contents_as_list[[1]]

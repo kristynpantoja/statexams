@@ -70,6 +70,13 @@ question_contents # look at it. works!
 
 
 
+question_contents = import_question("samplequestionlabeledparts.txt")
+process_question_contents = process_question_contents(question_contents)
+
+
+
+
+
 # --- Now want to try some kind of output --- #
 
 a = paste(question_contents, collapse = " ")
