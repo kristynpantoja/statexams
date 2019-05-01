@@ -54,20 +54,52 @@ process_question_contents = function(question_contents){
 import_questions = function(file){
   # make a list of questions
   list_of_questions_contents = list()
-  # something goes here, using import_question()
+  #readin_questions = readtext::readtext(file, dvsep = "\t")
+  #contents_as_string = readin_questions[1, 2]
+  #question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
+  #question_contents = question_contents_as_list[[1]]
   return(list_of_questions_contents)
-
-
-
-  readin_questions = readtext::readtext(file, dvsep = "\t")
-  contents_as_string = readin_questions[1, 2]
-  question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
-  # 4. grab the single element in the list, which is the vector
-  #     whose elements are the question followed by the answers
-  question_contents = question_contents_as_list[[1]]
-  # [TO DO] at some point, get rid of \n's
-  return(question_contents)
 }
+
+
+# after using rearrange function, get output ready for latex
+# output is two strings: 1 is actual test, the other is test with solutions
+enumerate_QAs_for_latex = function(rearranged_QAs){
+  QAs = rearranged_QAs[[1]] # questions (first element) and answers (rest of elements)
+  QAs_lengths = rearranged_QAs[[4]] # number of elements in questions and answers
+  numQuestions = length(QAs)
+
+  test = "\n\\begin{enumerate}"
+  solutions = "\n\\begin{enumerate}"
+  for(i in 1:numQuestions){
+    # get question
+    question_and_answers = QAs[[i]]
+    question = question_and_answers[1]
+    test = paste(test, "\n\t\\item ", question, sep = "")
+    # get answers
+    answers = "\n\t\\begin{enumerate}"
+    for(j in 2:QAs_lengths[i]){
+      answers = paste(answers, "\n\t\t\\item ", question_and_answers[j], sep = "")
+    }
+    answers = paste(answers, "\n\t\\end{enumerate}[a]")
+    test = paste(test, answers, sep = "")
+    solutions = paste(solutions, "\n\t\\item", i, " . ", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
+  }
+  test = paste(test, "\n\\end{enumerate}\n", sep = "")
+  solutions = paste(test, "\n\\end{enumerate}\n", sep = "")
+  return(c(test, solutions))
+}
+
+
+# a function that takes as input a (long) string of all questions and answers
+# and adds the latex begin and end parts
+export_for_latex = function(contents){ # a string of all the q/a's
+  document_begin = "\\documentclass[11pt]{article} \n\\usepackage[margin=1in]{geometry} \n\\usepackage{graphicx} \n\\usepackage{amsthm, amsmath, amssymb} \n\\usepackage{setspace}\\onehalfspacing \n\\begin{document}\n\n"
+  document_end = "\n\n\\end{document}"
+  latex_ready_txt = paste(c(document_begin, contents, document_end), collapse = " \n")
+  return(latex_ready_txt)
+}
+
 
 
 # export a string as contents of a txt file called filename (should have .txt extension)

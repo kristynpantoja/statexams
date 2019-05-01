@@ -14,7 +14,16 @@ testrearrange = rearrange(test)
 testrearrange
 
 
-question_contents = import_question("samplequestionlabeledparts.txt")
-process_question_contents = process_question_contents(question_contents)
-rearrange(process_question_contents)
-length(process_question_contents)
+
+
+test = enumerate_QAs_for_latex(testrearrange)
+export_txt(test, "test.txt")
+
+
+
+
+
+#question_contents = import_question("samplequestionlabeledparts.txt")
+#process_question_contents = process_question_contents(question_contents)
+#rearrange(process_question_contents)
+#length(process_question_contents)
