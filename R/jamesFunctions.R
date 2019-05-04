@@ -40,11 +40,11 @@ generate_probability_rules = function(special = NULL){
 #'
 #' @examples makeQA_eventprob(type = 1)
 #' "Events A and B are independent.The probability of A is 0.9.  The probability of B is 0.3.  What is the probability that neither A nor B will occur?"
-#' "0.0699999999999998"
-#' "0.6"
-#' "0.27"
-#' "1.2"
-#' "0.93"
+#' "0.070"
+#' "0.600"
+#' "0.270"
+#' "1.200"
+#' "0.930"
 makeQA_eventprob = function(type = NULL){
   #type = 1 gives independence.  2 gives no assumptions.  3 gives mutually exclusive
   if(is.null(type)){
@@ -58,11 +58,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                    ".  The probability of B is ", probs[2], ".  What is the probability of A intersection B?", sep = "")
-        ans1 = probs[3]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[4]
-        ans4 = probs[1] + probs[2]
-        ans5 = 1 - probs[4]
+        ans1 = round(probs[3],3)
+        ans2 = round(abs(probs[1] - probs[2]),3)
+        ans3 = round(probs[4],3)
+        ans4 = round(probs[1] + probs[2],3)
+        ans5 = round(1 - probs[4],3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
@@ -75,11 +75,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                        ".  The probability of B is ", probs[2], ".  What is the probability of at least A or B occuring?", sep = "")
-        ans1 = probs[4]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[3]
-        ans4 = probs[1] + probs[2]
-        ans5 = 1 - probs[4]
+        ans1 = round(probs[4],3)
+        ans2 = round(abs(probs[1] - probs[2]),3)
+        ans3 = round(probs[3],3)
+        ans4 = round(probs[1] + probs[2],3)
+        ans5 = round(1 - probs[4],3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
@@ -92,11 +92,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                          ".  The probability of B is ", probs[2], ".  What is the probability that neither A nor B will occur?", sep = "")
-        ans1 = 1 - probs[4]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[3]
-        ans4 = probs[1] + probs[2]
-        ans5 = probs[4]
+        ans1 = round(1 - probs[4], 3)
+        ans2 = round(abs(probs[1] - probs[2]), 3)
+        ans3 = round(probs[3], 3)
+        ans4 = round(probs[1] + probs[2], 3)
+        ans5 = round(probs[4], 3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
@@ -147,6 +147,21 @@ makeQA_eventprob = function(type = NULL){
 }
 
 
+#' Title Generate expected value function
+#'
+#' @param prob Vector of probabilities corresponding to values vector.  Must sum to 1 and be non-negative
+#' @param values Vector of values that r.v. X takes
+#'
+#' @return Outputs Expected value function
+#' @export
+#'
+#' @examples makeQA_ExpectedValue(prob = c(0.4, 0.2, 0.4), values = c(2,4,8))
+#' "f(2) = 0.4.  f(4) = 0.2.  f(8) = 0.4.  What is the expected value of X?"
+#' "4.8"
+#' "14"
+#' "15"
+#' "84.672"
+#' "5"
 makeQA_ExpectedValue = function(prob = NULL, values = NULL){
   if(is.null(prob) & is.null(values)){
     n = sample(3:5, 1)
@@ -220,6 +235,27 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
 
 
 
+#' Title Generate hypothesis test question
+#'
+#' @param type Type of test 0:  Left tail, 1: Right tail, 2: Two tailed
+#' @param level Level of test.  Must be great than 0 and less than 0.5
+#' @param Xbar Sample mean
+#' @param sigma Sample standard deviation
+#' @param n Sample size
+#' @param mu_0 What mu equals under null hypothesis
+#'
+#' @return Generates hypothesis test question
+#' @export
+#'
+#' @examples makeQA_HypothesisTest(type = 0)
+#' "H_0: mu = 4.4; H_a = mu < 4.4.  You take 43 samples and find that the sample mean is 4.312.  The sample standard deviation is 1.9. Do you reject the null hypothesis at the 0.05 level?"
+#' "yes"
+#' "no"
+#'
+#' makeQA_HypothesisTest(type = 1)
+#' "H_0: mu = 7; H_a = mu > 7.  You take 65 samples and find that the sample mean is 7.109.  The sample standard deviation is 4.2. Do you reject the null hypothesis at the 0.05 level?"
+#' "no"
+#' "yes"
 makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL, n = NULL, mu_0 = NULL){
   if(level >0.5){
     stop("Level must be no greater than 0.5")
@@ -292,6 +328,30 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
   }
 }
 
+#' Title Generate conditional probability question
+#'
+#' @param proportion Splits the population into 3 groups with this proportion.  Must sum to 1
+#' @param condprob Gives a conditional probability for each group
+#' @param type (1, 2).  1:  Total probability question  2: Bayes Theorem question
+#'
+#' @return
+#' @export
+#'
+#' @examples makeQA_ConditionalProbability(type = 2)
+#'  "A company buys resistors from vendor companies A, B, and C.
+#'  30% come from company A  40% come from comapny B, and 30% come
+#'  from company C.  If a resistor comes from company A, there is a
+#'  67% chance that it is within tolerance.  If a resistor comes from
+#'  company B, there is a 57% chance that it is within tolerance.
+#'  If a resistor comes from company C, there is a 82% chance that
+#'  it is within tolerance.  If a randomly selected resistor is
+#'  within tolerance, what is the probability it came from company A?"
+#'  "0.298"
+#'  "0.67"
+#'  "0.675"
+#'  "0.687"
+#'  "2.06"
+#'
 makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, type = NULL){
   if(is.null(proportion) && is.null(condprob)){
     proportion = rep(0, 3)
