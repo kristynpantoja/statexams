@@ -235,6 +235,27 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
 
 
 
+#' Title Generate hypothesis test question
+#'
+#' @param type Type of test 0:  Left tail, 1: Right tail, 2: Two tailed
+#' @param level Level of test.  Must be great than 0 and less than 0.5
+#' @param Xbar Sample mean
+#' @param sigma Sample standard deviation
+#' @param n Sample size
+#' @param mu_0 What mu equals under null hypothesis
+#'
+#' @return Generates hypothesis test question
+#' @export
+#'
+#' @examples makeQA_HypothesisTest(type = 0)
+#' "H_0: mu = 4.4; H_a = mu < 4.4.  You take 43 samples and find that the sample mean is 4.312.  The sample standard deviation is 1.9. Do you reject the null hypothesis at the 0.05 level?"
+#' "yes"
+#' "no"
+#'
+#' makeQA_HypothesisTest(type = 1)
+#' "H_0: mu = 7; H_a = mu > 7.  You take 65 samples and find that the sample mean is 7.109.  The sample standard deviation is 4.2. Do you reject the null hypothesis at the 0.05 level?"
+#' "no"
+#' "yes"
 makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL, n = NULL, mu_0 = NULL){
   if(level >0.5){
     stop("Level must be no greater than 0.5")
