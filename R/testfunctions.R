@@ -200,7 +200,7 @@ question_contents = paste(question_contents, collapse = " ")
 
 export_txt(question_contents, "test.txt")
 
-export_for_latex = function(contents){ # a string of all the q/a's
+export_for_latex_string = function(contents){ # a string of all the q/a's
   document_begin = "\\documentclass[11pt]{article} \n\\usepackage[margin=1in]{geometry} \n\\usepackage{graphicx} \n\\usepackage{amsthm, amsmath, amssymb} \n\\usepackage{setspace}\\onehalfspacing \n\\begin{document}\n\n"
   document_end = "\n\n\\end{document}"
   latex_ready_txt = paste(c(document_begin, contents, document_end), collapse = " \n")
@@ -239,8 +239,6 @@ enumerate_QAs_for_latex = function(rearranged_QAs){
   solutions = paste(test, "\n\\end{enumerate}\n", sep = "")
   return(c(test, solutions))
 }
-
-
 
 
 

@@ -21,6 +21,10 @@ export_txt(test, "test.txt")
 
 
 
+export_test(test, rearrange = TRUE, testfile = "test_export_test.txt", solutionsfile = "solutions_export_test.txt")
+
+
+
 
 
 #question_contents = import_question("samplequestionlabeledparts.txt")

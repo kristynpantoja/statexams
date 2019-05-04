@@ -1,14 +1,4 @@
-# --- Functions for Importing/Exporting to/from a .txt File --- #
-
-#' Title
-#'
-#' @param file a .txt file with a question and some answer choices. Question is preceded by a tab and "*Q*"; answers are preceded by a tab and "*A*". The correct answer is followed by "%ans".
-#'
-#' @return a character vector with the first element as the question, and the rest as provided answer choices.
-#' @export
-#'
-#' @examples
-import_question = function(file){
+import_question_raw = function(file){
   # 1. read in the file. it has 2 parts: the name of the file, and the text inside the file.
   readin_question = readtext::readtext(file, dvsep = "\t")
   # 2. get the long string of question and answers components, i.e. the text inside the file.
@@ -57,6 +47,23 @@ process_question_contents = function(question_contents){
   question_and_answers = c(question_and_answers, answers)
   return(question_and_answers)
 }
+
+
+# a wrapper for importing a question and corresponding answers so that it's ready to be rearranged with other QAs
+#' Import Your Own Question
+#'
+#' @param file a .txt file that has questions (preceded by a tab and a *Q*) and answer choices (preceded by a tab and a *A*, with correct answer choice ending in \%ans)
+#'
+#' @return
+#' @export a vector with first element as question, second element as correct answer, and other elements as other answer choices.
+#'
+#' @examples
+import_question = function(file){
+  question_contents = import_question_raw(file)
+  QA = process_question_contents(question_contents)
+  return(QA)
+}
+
 
 # [TO DO] write import_questions() function
 import_questions = function(file){
@@ -119,8 +126,29 @@ export_txt = function(contents, filename){
   return("exported txt file")
 }
 
-
-
+# wrapper to export list of QAs as a latex file, after rearranging them
+#' Export Test
+#'
+#' @param list_of_QAs a list of character vectors
+#' @param rearrange boolean option to rearrange
+#' @param testfile name of test file (if none given, will be named "test.txt")
+#' @param solutionsfile name of test file (if none given, will be named "solutions.txt")
+#'
+#' @return
+#' @export produces the two latex files (as .txt files)
+#'
+#' @examples
+export_test = function(list_of_QAs, rearrange = TRUE, testfile = NULL, solutionsfile = NULL){
+  if(rearrange == TRUE) list_of_QAs = rearrange(list_of_QAs)
+  result = enumerate_QAs_for_latex(list_of_QAs)
+  test_latex = export_for_latex(result[1])
+  solutions_latex = export_for_latex(result[2])
+  if(is.null(testfile)) testfile = "test.txt"
+  if(is.null(solutionsfile)) solutionsfile = "solutions.txt"
+  export_txt(test_latex, testfile)
+  export_txt(solutions_latex, solutionsfile)
+  return("exported test and solutions files")
+}
 
 
 
@@ -231,6 +259,19 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
   return(labeled_answers)
 }
 
+
+#' Make a Normal Probability Question
+#'
+#' @param variable name of variable (default name is "X")
+#' @param mean mean of Normal distribution (default is 0)
+#' @param sd standard deviation of Normal distribution (default is 1)
+#' @param interval interval or tail probability. Interval if a vector with 2 elements; tail if scalar.
+#' @param tail If `interval` is scalar value, must specify which tail probability: "left" or "right"
+#'
+#' @return
+#' @export a vector with first element as question, second element as correct answer, and other elements as other answer choices.
+#'
+#' @examples
 makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
   question = makeQuestion_normal(variable, mean, sd, interval, tail)
   answers = makeAnswers_normal(variable, mean, sd, interval, tail)
@@ -324,7 +365,24 @@ makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, indiv
   return(labeled_answers)
 }
 
-makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+
+
+
+#' Make a Confidence Interval for Proportion Question
+#'
+#' @param n sample size
+#' @param numPositive number of positive samples (number of individuals who gave positive responses)
+#' @param C confidence level (default is 0.95)
+#' @param population population size (optional)
+#' @param individuals title of individuals (default is "individuals")
+#' @param question "survey question to be asked to individuals" (optional)
+#' @param answer survey answer choice to be considered a positive response
+#'
+#' @return
+#' @export a vector with first element as question, second element as correct answer, and other elements as other answer choices.
+#'
+#' @examples
+makeQA_CIprop = function(n = 30, numPositive = 10, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
   question = makeQuestion_CIprop(n , numPositive, C = 0.95, population, individuals,
                                  question, answer)
