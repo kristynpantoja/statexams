@@ -417,3 +417,77 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
     return(c(question, answers))
   }
 }
+
+#' Title Rearrange questions and answers
+#'
+#' @param x list of vectors.  First element of each vector is question.
+#' Second element is correct answer.  Remaining elements are incorrect answers
+#'
+#' @return  Returns questions and answers rearranged, the answer key (letters),
+#'  the correct answers (numeric), and the number of elements in each vector.
+#' @export
+#'
+#' @examples x = list(c(1, "a", "b"), c(2, "a", "b", "c"), c(3, "a", "b", "c", "d", "e"))
+#' rearrange(x)
+#'#[[1]]
+#'#[[1]][[1]]
+#'#[1] "2" "a" "c" "b"
+#'#
+#'#[[1]][[2]]
+#'#[1] "1" "b" "a"
+#'#
+#'#[[1]][[3]]
+#'#[1] "3" "b" "d" "a" "c" "e"
+#'#
+#'#
+#'#[[2]]
+#'#[1] "a" "b" "c"
+#'#
+#'#[[3]]
+#'#[1] "a" "a" "a"
+#'#
+#'#[[4]]
+#'#[1] 4 3 6
+rearrange = function(x){
+  num_ques = length(x)
+  correct = ""
+  for(i in 1:num_ques){
+    correct[i] = x[[i]][2]
+  }
+  QA = rep(NA, num_ques)
+  for(i in 1:num_ques){
+    QA[i] = length(x[[i]]) # number of answers +1 per question
+  }
+
+  ind = sample(num_ques)
+  reorder_ans = x
+  for(i in 1:num_ques){
+    num_ans = length(x[[i]]) #technically number of answers + 1
+    ind_ans = sample(2:num_ans)
+    for(j in 2:num_ans){
+      reorder_ans[[i]][j] = x[[i]][ind_ans[j - 1]]
+
+    }
+  }
+  reorder_x = list(NA)
+  reorder_QA = rep(NA, num_ques)
+  reorder_correct = ""
+  for(i in 1:num_ques){
+    reorder_x[i] = reorder_ans[ind[i]]
+    reorder_QA[i] = QA[ind[i]]
+    reorder_correct[i] = correct[ind[i]]
+  }
+  letter_correct = rep(0, num_ques)
+  for(i in 1:num_ques){
+    letter_correct[i] = which(reorder_x[[i]] == reorder_correct[i])
+  }
+
+  letters = c("", "a", "b", "c", "d", "e", "f", "g")
+  letter_correct_out = ""
+  for(i in 1:num_ques){
+    letter_correct_out[i] = letters[letter_correct[i]]
+  }
+  #Output string of question and answer
+  #Output number of elements per question(eg 1 question with 3 answers outputs 4)
+  return(list(reorder_x, letter_correct_out, reorder_correct, reorder_QA))
+}
