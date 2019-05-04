@@ -22,7 +22,7 @@ process_question_contents = function(question_contents){
       delete = c(delete, i)
     }
   }
-  question_contents = question_contents[-delete]
+  if(length(delete) > 0) question_contents = question_contents[-delete]
 
   # put together the question and answers (indicating which is the correct answer)
 
