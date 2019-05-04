@@ -10,7 +10,7 @@ Authors@R:
            family = "Dole",
            role = c("aut", "cre"),
            email = "jimdole87@gmail.com"))
-Description: Make exams!
+Description: Generate questions and answers for homeworks and exams, and export them to LaTeX files. The questions were generated with STAT-201 and STAT-211 in mind.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
