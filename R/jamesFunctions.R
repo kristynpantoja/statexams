@@ -328,6 +328,22 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
   }
 }
 
+#' Title Generate conditional probability question
+#'
+#' @param proportion Splits the population into 3 groups with this proportion.  Must sum to 1
+#' @param condprob Gives a conditional probability for each group
+#' @param type (1, 2).  1:  Total probability question  2: Bayes Theorem question
+#'
+#' @return
+#' @export
+#'
+#' @examples makeQA_ConditionalProbability(type = 2)
+#'  "A company buys resistors from vendor companies A, B, and C.  30% come from company A  40% come from comapny B, and 30% come from company C.  If a resistor comes from company A, there is a 67% chance that it is within tolerance.  If a resistor comes from company B, there is a 57% chance that it is within tolerance.  If a resistor comes from company C, there is a 82% chance that it is within tolerance.  If a randomly selected resistor is within tolerance, what is the probability it came from company A?"
+#'  "0.298"
+#'  "0.67"
+#'  "0.675"
+#'  "0.687"
+#'  "2.06"
 makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, type = NULL){
   if(is.null(proportion) && is.null(condprob)){
     proportion = rep(0, 3)
