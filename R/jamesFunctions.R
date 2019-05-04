@@ -31,7 +31,7 @@ generate_probability_rules = function(special = NULL){
 }
 
 
-#' Title
+#' Title Generate probability question
 #'
 #' @param type Determines the type of probability question.  Valid inputs: 1, 2, 3
 #'

@@ -242,9 +242,6 @@ enumerate_QAs_for_latex = function(rearranged_QAs){
 
 
 
-test = enumerate_QAs_for_latex(testrearrange)
-export_txt(test, "test.txt")
-
 
 
 
