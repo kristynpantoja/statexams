@@ -6,3 +6,4 @@ export(makeQA_ExpectedValue)
 export(makeQA_HypothesisTest)
 export(makeQA_eventprob)
 export(rearrange)
+
