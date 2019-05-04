@@ -244,7 +244,7 @@ makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL
 
 # --- Functions for Creating Questions for Confidence Intervals for Proportions --- #
 
-makeQuestion_CIprop = function(n, numPositive, C = 0.95, population = NULL, individuals = "individuals",
+makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                                question = NULL, answer = NULL){
   # error checking
   # check if n, numPositive, population (if given) are all integers
@@ -293,7 +293,7 @@ makeQuestion_CIprop = function(n, numPositive, C = 0.95, population = NULL, indi
 }
 
 
-makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
+makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
                               question = NULL, answer = "no"){
   labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
   # correct values
@@ -326,6 +326,9 @@ makeAnswers_CIprop = function(n , numPositive, C = 0.95, population = 100, indiv
 
 makeQA_CIprop = function(n , numPositive, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
+  if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")
+  if(is.null(n)) n = sample(30:100, 1)
+  if(is.null(numPositive)) numPositive = sample(1:n, 1)
   question = makeQuestion_CIprop(n , numPositive, C = 0.95, population, individuals,
                                  question, answer)
   answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
