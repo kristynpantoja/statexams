@@ -351,6 +351,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
 #'  "0.675"
 #'  "0.687"
 #'  "2.06"
+#'
 makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, type = NULL){
   if(is.null(proportion) && is.null(condprob)){
     proportion = rep(0, 3)
