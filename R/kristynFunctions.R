@@ -1,5 +1,13 @@
 # --- Functions for Importing/Exporting to/from a .txt File --- #
 
+#' Title
+#'
+#' @param file a .txt file with a question and some answer choices. Question is preceded by a tab and "*Q*"; answers are preceded by a tab and "*A*". The correct answer is followed by "%ans".
+#'
+#' @return a character vector with the first element as the question, and the rest as provided answer choices.
+#' @export
+#'
+#' @examples
 import_question = function(file){
   # 1. read in the file. it has 2 parts: the name of the file, and the text inside the file.
   readin_question = readtext::readtext(file, dvsep = "\t")
@@ -140,21 +148,21 @@ makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail 
   # Question for Left-tail probabilities
   if(length(interval) == 1 & tail == 0){
     component4 = " is less than "
-    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+    context_component2 = paste(variable, component4, interval, "?", sep = "")
   }
 
   # Question for Right-tail probabilities
   if(length(interval) == 1 & tail == 1){
     component4 = " is greater than "
-    context_component2 = paste(variable, base_component4, interval, "?", sep = "")
+    context_component2 = paste(variable, component4, interval, "?", sep = "")
   }
 
   # Question for interval probabilities
   if(length(interval) == 2){
     component4 = " is between "
     component5 = " and "
-    context_component2 = paste(variable, base_component4, interval[1],
-                               base_component5, interval[2], "?", sep = "")
+    context_component2 = paste(variable, component4, interval[1],
+                               component5, interval[2], "?", sep = "")
   }
 
   question = paste(context_component1, context_component2, sep = "")
