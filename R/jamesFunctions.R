@@ -147,6 +147,21 @@ makeQA_eventprob = function(type = NULL){
 }
 
 
+#' Title Generate expected value function
+#'
+#' @param prob Vector of probabilities corresponding to values vector.  Must sum to 1 and be non-negative
+#' @param values Vector of values that r.v. X takes
+#'
+#' @return Outputs Expected value function
+#' @export
+#'
+#' @examples makeQA_ExpectedValue(prob = c(0.4, 0.2, 0.4), values = c(2,4,8))
+#' "f(2) = 0.4.  f(4) = 0.2.  f(8) = 0.4.  What is the expected value of X?"
+#' "4.8"
+#' "14"
+#' "15"
+#' "84.672"
+#' "5"
 makeQA_ExpectedValue = function(prob = NULL, values = NULL){
   if(is.null(prob) & is.null(values)){
     n = sample(3:5, 1)
