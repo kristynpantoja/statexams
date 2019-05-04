@@ -40,11 +40,11 @@ generate_probability_rules = function(special = NULL){
 #'
 #' @examples makeQA_eventprob(type = 1)
 #' "Events A and B are independent.The probability of A is 0.9.  The probability of B is 0.3.  What is the probability that neither A nor B will occur?"
-#' "0.0699999999999998"
-#' "0.6"
-#' "0.27"
-#' "1.2"
-#' "0.93"
+#' "0.070"
+#' "0.600"
+#' "0.270"
+#' "1.200"
+#' "0.930"
 makeQA_eventprob = function(type = NULL){
   #type = 1 gives independence.  2 gives no assumptions.  3 gives mutually exclusive
   if(is.null(type)){
@@ -58,11 +58,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                    ".  The probability of B is ", probs[2], ".  What is the probability of A intersection B?", sep = "")
-        ans1 = probs[3]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[4]
-        ans4 = probs[1] + probs[2]
-        ans5 = 1 - probs[4]
+        ans1 = round(probs[3],3)
+        ans2 = round(abs(probs[1] - probs[2]),3)
+        ans3 = round(probs[4],3)
+        ans4 = round(probs[1] + probs[2],3)
+        ans5 = round(1 - probs[4],3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
@@ -75,11 +75,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                        ".  The probability of B is ", probs[2], ".  What is the probability of at least A or B occuring?", sep = "")
-        ans1 = probs[4]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[3]
-        ans4 = probs[1] + probs[2]
-        ans5 = 1 - probs[4]
+        ans1 = round(probs[4],3)
+        ans2 = round(abs(probs[1] - probs[2]),3)
+        ans3 = round(probs[3],3)
+        ans4 = round(probs[1] + probs[2],3)
+        ans5 = round(1 - probs[4],3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
@@ -92,11 +92,11 @@ makeQA_eventprob = function(type = NULL){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
                          ".  The probability of B is ", probs[2], ".  What is the probability that neither A nor B will occur?", sep = "")
-        ans1 = 1 - probs[4]
-        ans2 = abs(probs[1] - probs[2])
-        ans3 = probs[3]
-        ans4 = probs[1] + probs[2]
-        ans5 = probs[4]
+        ans1 = round(1 - probs[4], 3)
+        ans2 = round(abs(probs[1] - probs[2]), 3)
+        ans3 = round(probs[3], 3)
+        ans4 = round(probs[1] + probs[2], 3)
+        ans5 = round(probs[4], 3)
         answers = c(ans1, ans2, ans3, ans4, ans5)
         if(length(unique(answers)) == 5){
           checkques = 1
