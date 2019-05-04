@@ -31,6 +31,20 @@ generate_probability_rules = function(special = NULL){
 }
 
 
+#' Title
+#'
+#' @param type Determines the type of probability question.  Valid inputs: 1, 2, 3
+#'
+#' @return Returns a probability question
+#' @export
+#'
+#' @examples makeQA_eventprob(type = 1)
+#' [1] "Events A and B are independent.The probability of A is 0.9.  The probability of B is 0.3.  What is the probability that neither A nor B will occur?"
+#'[2] "0.0699999999999998"
+#'[3] "0.6"
+#'[4] "0.27"
+#'[5] "1.2"
+#'[6] "0.93"
 makeQA_eventprob = function(type = NULL){
   #type = 1 gives independence.  2 gives no assumptions.  3 gives mutually exclusive
   if(is.null(type)){
