@@ -147,7 +147,7 @@ makeQA_eventprob = function(type = NULL){
 }
 
 
-#' Title Generate expected value function
+#' Generate expected value function
 #'
 #' @param prob Vector of probabilities corresponding to values vector.  Must sum to 1 and be non-negative
 #' @param values Vector of values that r.v. X takes
@@ -235,7 +235,7 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
 
 
 
-#' Title Generate hypothesis test question
+#' Generate hypothesis test question
 #'
 #' @param type Type of test 0:  Left tail, 1: Right tail, 2: Two tailed
 #' @param level Level of test.  Must be great than 0 and less than 0.5
@@ -328,7 +328,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
   }
 }
 
-#' Title Generate conditional probability question
+#' Generate conditional probability question
 #'
 #' @param proportion Splits the population into 3 groups with this proportion.  Must sum to 1
 #' @param condprob Gives a conditional probability for each group
