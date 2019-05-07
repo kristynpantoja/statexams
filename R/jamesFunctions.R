@@ -280,9 +280,10 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
       }
     else{
         reject = Xbar <= mu_0 - qt(1 - level, n-1)*sigma/n
-      }
+    }
 
-    question = paste("$H_0: \\mu = ", mu_0,"$; H_a: \\mu < ", mu_0,"$.  You take ", n," samples and find that the sample mean is ", Xbar,
+
+    question = paste("$H_0: \\mu = ", mu_0,"$; $H_a: \\mu < ", mu_0,"$.  You take ", n," samples and find that the sample mean is ", Xbar,
                    ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
     yesno = c("no", "yes")
     ans1 = yesno[reject + 1]
