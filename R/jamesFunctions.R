@@ -38,7 +38,7 @@ generate_probability_rules = function(special = NULL){
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples makeQA_eventprob(type = 1)
+#' @examples makeQA_EventProbability(type = 1)
 #' "Events A and B are independent.The probability of A is 0.9.  The probability of B is 0.3.  What is the probability that neither A nor B will occur?"
 #' "0.070"
 #' "0.600"
