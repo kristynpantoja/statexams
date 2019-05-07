@@ -137,9 +137,10 @@ export_txt = function(contents, filename){
 #' @return produces the two latex files (as .txt files)
 #' @export
 #'
-#' @examples
-export_test = function(list_of_QAs, rearrange = TRUE, testfile = NULL, solutionsfile = NULL){
-  if(rearrange == TRUE) list_of_QAs = rearrange(list_of_QAs)
+#' @examples QA1 = makeQA_CIprop(); QA2 = makeQA_normal(); QAs = list(QA1, QA2)
+#' export_test(QAs)
+export_test = function(list_of_QAs, testfile = NULL, solutionsfile = NULL){
+  list_of_QAs = rearrange(list_of_QAs)
   result = enumerate_QAs_for_latex(list_of_QAs)
   test_latex = export_for_latex(result[1])
   solutions_latex = export_for_latex(result[2])
@@ -271,8 +272,24 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples
-makeQA_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+#' @examples makeQA_normal()
+makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL, tail = NULL){
+  if(is.null(sd)){
+    sd = sample(seq(0, 5, 0.1), 1)
+  }
+  if(is.null(mean)){
+    mean = round(sample(seq(-10, 10, 0.1),1),2)
+  }
+  if(is.null(interval)){
+    sign = sample(c(-1, 1), 1)
+    which.tail = sample(c(0, 1), 1)
+    interval = mean + sign * sample(seq(0, 2.5, 0.1), 1) * sd
+    if(which.tail){
+      tail = "left"
+    } else{
+      tail = "right"
+    }
+  }
   question = makeQuestion_normal(variable, mean, sd, interval, tail)
   answers = makeAnswers_normal(variable, mean, sd, interval, tail)
   return(c(question, as.character(answers)))
@@ -381,7 +398,7 @@ makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples
+#' @examples makeQA_CIprop()
 makeQA_CIprop = function(n = 30, numPositive = 10, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
   if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")

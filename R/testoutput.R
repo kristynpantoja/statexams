@@ -17,8 +17,8 @@ testrearrange
 
 
 test = enumerate_QAs_for_latex(testrearrange)
-export_txt(test, "test.txt")
-
+export = export_for_latex(test)
+export_txt(export, "test.txt")
 
 
 
