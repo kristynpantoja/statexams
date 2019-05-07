@@ -14,6 +14,7 @@ import_question_raw = function(file){
 
 
 process_question_contents = function(question_contents){
+  if(length(question_contents) < 3) stop("Not enough answer choices.")
   # get rid of empty elements
   delete = c()
   for(i in 1:length(question_contents)){
@@ -26,7 +27,7 @@ process_question_contents = function(question_contents){
   # put together the question and answers (indicating which is the correct answer)
 
   # first non-empty element is the question
-  question_and_answers = question_contents[1]
+  question = question_contents[1]
 
   # find the correct answer, and put it last
   answers_vector = question_contents[-1]
@@ -35,7 +36,7 @@ process_question_contents = function(question_contents){
   correct_answer_index = which(is_correct_answer == TRUE)
   answers = answers_vector[incorrect_answers_indices]
   answers = c(answers_vector[correct_answer_index], answers)
-  # name elements
+  # name the elements
   answers_names = c("correct_answer")
   for(i in 1:length(incorrect_answers_indices)){
     another_answer_name = paste("incorrect_answer", i, sep = "")
@@ -43,12 +44,12 @@ process_question_contents = function(question_contents){
   }
   names(answers) = answers_names
 
-  question_and_answers = c(question_and_answers, answers)
+  question_and_answers = c(question, answers)
   return(question_and_answers)
 }
 
 
-# a wrapper for importing a quesssstion and corresponding answers so that it's ready to be rearranged with other QAs
+# a wrapper for importing a question and corresponding answers so that it's ready to be rearranged with other QAs
 #' Import Your Own Question
 #'
 #' @param file a .txt file that has questions (preceded by a tab and a *Q*) and answer choices (preceded by a tab and a *A*, with correct answer choice ending in \%ans)
