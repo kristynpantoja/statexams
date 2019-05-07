@@ -88,7 +88,7 @@ enumerate_QAs_for_latex = function(rearranged_QAs){
     solutions = paste(solutions, "\n\t\\item", i, " . ", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
   }
   test = paste(test, "\n\\end{enumerate}\n", sep = "")
-  solutions = paste(test, "\n\\end{enumerate}\n", sep = "")
+  solutions = paste(solutions, "\n\\end{enumerate}\n", sep = "")
   return(c(test, solutions))
 }
 
@@ -272,7 +272,7 @@ makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL
   if(is.null(interval)){
     sign = sample(c(-1, 1), 1)
     which.tail = sample(c(0, 1), 1)
-    interval = mean + sign * sample(seq(0, 2.5, 0.1), 1) * sd
+    interval = mean + sign * sample(seq(0.1, 2.5, 0.1), 1) * sd
     if(which.tail){
       tail = "left"
     } else{
