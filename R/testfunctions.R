@@ -200,13 +200,6 @@ question_contents = paste(question_contents, collapse = " ")
 
 export_txt(question_contents, "test.txt")
 
-export_for_latex = function(contents){ # a string of all the q/a's
-  document_begin = "\\documentclass[11pt]{article} \n\\usepackage[margin=1in]{geometry} \n\\usepackage{graphicx} \n\\usepackage{amsthm, amsmath, amssymb} \n\\usepackage{setspace}\\onehalfspacing \n\\begin{document}\n\n"
-  document_end = "\n\n\\end{document}"
-  latex_ready_txt = paste(c(document_begin, contents, document_end), collapse = " \n")
-  return(latex_ready_txt)
-}
-
 latex = export_for_latex(question_contents)
 export_txt(latex, "test.txt")
 
@@ -214,32 +207,6 @@ export_txt(latex, "test.txt")
 
 # after using rearrange function, get output ready for latex
 # output is two strings: 1 is actual test, the other is test with solutions
-enumerate_QAs_for_latex = function(rearranged_QAs){
-  QAs = rearranged_QAs[[1]] # questions (first element) and answers (rest of elements)
-  QAs_lengths = rearranged_QAs[[4]] # number of elements in questions and answers
-  numQuestions = length(QAs)
-
-  test = "\n\\begin{enumerate}"
-  solutions = "\n\\begin{enumerate}"
-  for(i in 1:numQuestions){
-    # get question
-    question_and_answers = QAs[[i]]
-    question = question_and_answers[1]
-    test = paste(test, "\n\t\\item ", question, sep = "")
-    # get answers
-    answers = "\n\t\\begin{enumerate}"
-    for(j in 2:QAs_lengths[i]){
-      answers = paste(answers, "\n\t\t\\item ", question_and_answers[j], sep = "")
-    }
-    answers = paste(answers, "\n\t\\end{enumerate}[a]")
-    test = paste(test, answers, sep = "")
-    solutions = paste(solutions, "\n\t\\item", i, " . ", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
-  }
-  test = paste(test, "\n\\end{enumerate}\n", sep = "")
-  solutions = paste(test, "\n\\end{enumerate}\n", sep = "")
-  return(c(test, solutions))
-}
-
 
 
 
