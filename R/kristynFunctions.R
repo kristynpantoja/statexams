@@ -312,8 +312,13 @@ makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, populatio
   component2 = paste(" ", individuals, sep = "")
   # out of a population
   component3 = ""
-  if(is.null(population)) component3 = ", "
-  else component3 = paste(" from a population of size ", population, ", ", sep = "")
+  if(is.null(population)){
+    component3 = ", "
+  }
+  else {
+    if(typeof(population) != "character") stop("population parameter must be a string")
+    component3 = paste(" from a population of size ", population, ", ", sep = "")
+  }
   context_component1 = paste(component1, n, component2, component3, sep = "")
 
   # answer to the question
@@ -348,7 +353,7 @@ makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, populatio
 }
 
 
-makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
+makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                               question = NULL, answer = NULL){
   labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
   # correct values
@@ -396,7 +401,7 @@ makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population
 #' @export
 #'
 #' @examples makeQA_CIprop()
-makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
+makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                          question = NULL, answer = NULL){
   if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")
   if(is.null(n)) n = sample(30:100, 1)
