@@ -45,7 +45,7 @@ generate_probability_rules = function(special = NULL){
 #' "0.270"
 #' "1.200"
 #' "0.930"
-makeQA_eventprob = function(type = NULL){
+makeQA_EventProbability = function(type = NULL){
   #type = 1 gives independence.  2 gives no assumptions.  3 gives mutually exclusive
   if(is.null(type)){
   type = sample(1:2,1)
@@ -111,7 +111,7 @@ makeQA_eventprob = function(type = NULL){
       probs = generate_probability_rules(0)
       question = paste("The probability of A is ", probs[1],
             ".  The probability of B is ", probs[2],
-            ".  The probability of A and B both occuring is ", probs[3],
+            ".  The probability of A and B both occurring is ", probs[3],
             ".  What is the probability of A or B occurring?", sep = "")
       ans1 = round(probs[4],3)
       ans2 = round(abs(probs[1] - probs[2]),3)
