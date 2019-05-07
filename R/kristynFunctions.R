@@ -9,7 +9,6 @@ import_question_raw = function(file){
   # 4. grab the single element in the list, which is the vector
   #     whose elements are the question followed by the answers
   question_contents = question_contents_as_list[[1]]
-  # [TO DO] at some point, get rid of \n's
   return(question_contents)
 }
 
@@ -65,18 +64,6 @@ import_question = function(file){
 }
 
 
-# [TO DO] write import_questions() function
-import_questions = function(file){
-  # make a list of questions
-  list_of_questions_contents = list()
-  #readin_questions = readtext::readtext(file, dvsep = "\t")
-  #contents_as_string = readin_questions[1, 2]
-  #question_contents_as_list = strsplit(contents_as_string, split = "\\t\\*Q\\*|\\t\\*A\\*") # first it's a list
-  #question_contents = question_contents_as_list[[1]]
-  return(list_of_questions_contents)
-}
-
-
 # after using rearrange function, get output ready for latex
 # output is two strings: 1 is actual test, the other is test with solutions
 enumerate_QAs_for_latex = function(rearranged_QAs){
@@ -127,7 +114,7 @@ export_txt = function(contents, filename){
 }
 
 # wrapper to export list of QAs as a latex file, after rearranging them
-#' Export Test
+#' Export Test (and Solutions!)
 #'
 #' @param list_of_QAs a list of character vectors
 #' @param rearrange boolean option to rearrange
