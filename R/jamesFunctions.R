@@ -424,7 +424,7 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
 #' Second element is correct answer.  Remaining elements are incorrect answers
 #'
 #' @return  Returns questions and answers rearranged, the answer key (letters),
-#'  the correct answers (numeric), and the number of elements in each vector.
+#'  the correct answers (alphanumeric), and the number of elements in each vector.
 #' @export
 #'
 #' @examples x = list(c(1, "a", "b"), c(2, "a", "b", "c"), c(3, "a", "b", "c", "d", "e"))
