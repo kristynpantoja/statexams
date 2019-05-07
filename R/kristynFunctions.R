@@ -161,6 +161,8 @@ makeQuestion_normal = function(variable, mean, sd, interval, tail = NULL){
   if(is.null(tail)) tail = 2
 
   sd = round(sd, 3)
+  mean = round(mean, 3)
+  interval = round(interval, 3)
 
   component1 = " is normally distributed with mean "
   component2 = " and standard deviation "
