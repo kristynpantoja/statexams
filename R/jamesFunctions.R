@@ -282,7 +282,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
         reject = Xbar <= mu_0 - qt(1 - level, n-1)*sigma/n
       }
 
-    question = paste("H_0: mu = ", mu_0,"; H_a = mu < ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
+    question = paste("$H_0: \\mu = ", mu_0,"$; $H_a: \\mu < ", mu_0,"$.  You take ", n," samples and find that the sample mean is ", Xbar,
                    ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
     yesno = c("no", "yes")
     ans1 = yesno[reject + 1]
@@ -300,7 +300,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
       reject = Xbar >= mu_0 - qt(1 - level, n-1)*sigma/n
     }
 
-    question = paste("H_0: mu = ", mu_0,"; H_a = mu > ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
+    question = paste("$H_0: \\mu = ", mu_0,"$; $H_a: \\mu > ", mu_0,".$  You take ", n," samples and find that the sample mean is ", Xbar,
                      ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
     yesno = c("no", "yes")
     ans1 = yesno[reject + 1]
@@ -318,7 +318,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     else{
       reject = Xbar >= mu_0 - qt(1 - 0.5*level, n-1)*sigma/n | Xbar <= mu_0 - qt(1 - 0.5*level, n-1)*sigma/n
     }
-    question = paste("H_0: mu = ", mu_0,"; H_a = mu is not equal to ", mu_0,".  You take ", n," samples and find that the sample mean is ", Xbar,
+    question = paste("$H_0: \\mu = ", mu_0,"$; $H_a: \\mu \\neq ", mu_0,"$.  You take ", n," samples and find that the sample mean is ", Xbar,
                      ".  The sample standard deviation is ", sigma, ". Do you reject the null hypothesis at the ", level, " level?", sep = "")
     yesno = c("no", "yes")
     ans1 = yesno[reject + 1]
@@ -385,7 +385,7 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   if(type == 1){
     question = paste("A company buys resistors from vendor companies A, B, and C.  ",
                      100*proportion[1], "\\% come from company A  ",
-                     100*proportion[2], "\\% come from comapny B, and ",
+                     100*proportion[2], "\\% come from company B, and ",
                      100*proportion[3], "\\% come from company C.  If a resistor comes from company A, there is a ",
                      100*condprob[1], "\\% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
                      100*condprob[2], "\\% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
