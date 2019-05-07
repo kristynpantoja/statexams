@@ -450,6 +450,11 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
 #'#[1] 4 3 6
 rearrange = function(x){
   num_ques = length(x)
+  for(i in 1:num_ques){
+    if(length(x[[i]]) < 2){
+      stop("All entries of the list must have a question and a correct answer")
+    }
+  }
   correct = ""
   for(i in 1:num_ques){
     correct[i] = x[[i]][2]
