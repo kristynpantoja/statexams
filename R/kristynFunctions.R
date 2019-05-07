@@ -124,9 +124,9 @@ export_txt = function(contents, filename){
 #' @return produces the two latex files (as .txt files)
 #' @export
 #'
-#' @examples QA1 = makeQA_CIprop()
-#' QA2 = makeQA_normal()
-#' QA3 = makeQA_eventprob()
+#' @examples QA1 = makeQA_CIproportion()
+#' QA2 = makeQA_Normal()
+#' QA3 = makeQA_EventProbability()
 #' QA4 = makeQA_ExpectedValue()
 #' QA5 = makeQA_HypothesisTest()
 #' QA6 = makeQA_ConditionalProbability()
@@ -148,7 +148,7 @@ export_test = function(list_of_QAs, testfile = NULL, solutionsfile = NULL){
 
 # --- Functions for Creating Questions for Normal Distribution Calculations --- #
 
-makeQuestion_normal = function(variable, mean, sd, interval, tail = NULL){
+makeQuestion_Normal = function(variable, mean, sd, interval, tail = NULL){
   # Cleaning up arguments and error-catching
   if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
@@ -195,7 +195,7 @@ makeQuestion_normal = function(variable, mean, sd, interval, tail = NULL){
   return(question)
 }
 
-makeAnswers_normal = function(variable, mean, sd, interval, tail = NULL){
+makeAnswers_Normal = function(variable, mean, sd, interval, tail = NULL){
   # Cleaning up arguments and error-catching
   if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
@@ -269,8 +269,8 @@ makeAnswers_normal = function(variable, mean, sd, interval, tail = NULL){
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples makeQA_normal()
-makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL, tail = NULL){
+#' @examples makeQA_Normal()
+makeQA_Normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL, tail = NULL){
   if(is.null(sd)){
     sd = sample(seq(0.1, 5, 0.1), 1)
   }
@@ -287,8 +287,8 @@ makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL
       tail = "right"
     }
   }
-  question = makeQuestion_normal(variable, mean, sd, interval, tail)
-  q_answers = makeAnswers_normal(variable, mean, sd, interval, tail)
+  question = makeQuestion_Normal(variable, mean, sd, interval, tail)
+  q_answers = makeAnswers_Normal(variable, mean, sd, interval, tail)
   return(c(question, as.character(q_answers)))
 }
 
@@ -299,7 +299,7 @@ makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL
 
 # --- Functions for Creating Questions for Confidence Intervals for Proportions --- #
 
-makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
+makeQuestion_CIproportion = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                                question = NULL, answer = NULL){
   # error checking
   # check if n, numPositive, population (if given) are all integers
@@ -353,7 +353,7 @@ makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, populatio
 }
 
 
-makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
+makeAnswers_CIproportion = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                               question = NULL, answer = NULL){
   labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
   # correct values
@@ -400,15 +400,15 @@ makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples makeQA_CIprop()
-makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
+#' @examples makeQA_CIproportion()
+makeQA_CIproportion = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                          question = NULL, answer = NULL){
   if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")
   if(is.null(n)) n = sample(30:100, 1)
   if(is.null(numPositive)) numPositive = sample(1:n, 1)
-  question = makeQuestion_CIprop(n , numPositive, C = 0.95, population, individuals,
+  question = makeQuestion_CIproportion(n , numPositive, C = 0.95, population, individuals,
                                  question, answer)
-  q_answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
+  q_answers = makeAnswers_CIproportion(n , numPositive, C = 0.95, population, individuals,
                                question, answer)
   answers = rep(NA, length(q_answers))
   for(i in 1:length(answers)){
