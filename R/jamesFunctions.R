@@ -74,7 +74,7 @@ makeQA_eventprob = function(type = NULL){
       while(checkques == 0){
         probs = generate_probability_rules(1)
         question = paste("Events A and B are independent.The probability of A is ", probs[1],
-                       ".  The probability of B is ", probs[2], ".  What is the probability of at least A or B occuring?", sep = "")
+                       ".  The probability of B is ", probs[2], ".  What is the probability of at least A or B occurring?", sep = "")
         ans1 = round(probs[4],3)
         ans2 = round(abs(probs[1] - probs[2]),3)
         ans3 = round(probs[3],3)
