@@ -35,7 +35,7 @@ generate_probability_rules = function(special = NULL){
 #'
 #' @param type Determines the type of probability question.  Valid inputs: 1, 2, 3
 #'
-#' @return Returns a probability question
+#' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
 #' @examples makeQA_eventprob(type = 1)
@@ -152,7 +152,7 @@ makeQA_eventprob = function(type = NULL){
 #' @param prob Vector of probabilities corresponding to values vector.  Must sum to 1 and be non-negative
 #' @param values Vector of values that r.v. X takes
 #'
-#' @return Outputs Expected value function
+#' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
 #' @examples makeQA_ExpectedValue(prob = c(0.4, 0.2, 0.4), values = c(2,4,8))
@@ -244,7 +244,7 @@ makeQA_ExpectedValue = function(prob = NULL, values = NULL){
 #' @param n Sample size
 #' @param mu_0 What mu equals under null hypothesis
 #'
-#' @return Generates hypothesis test question
+#' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
 #' @examples makeQA_HypothesisTest(type = 0)
@@ -334,7 +334,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
 #' @param condprob Gives a conditional probability for each group
 #' @param type (1, 2).  1:  Total probability question  2: Bayes Theorem question
 #'
-#' @return
+#' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
 #' @examples makeQA_ConditionalProbability(type = 2)
