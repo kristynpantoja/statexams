@@ -418,7 +418,7 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   }
 }
 
-#' Title Rearrange questions and answers
+#' Rearrange questions and answers
 #'
 #' @param x list of vectors.  First element of each vector is question.
 #' Second element is correct answer.  Remaining elements are incorrect answers
