@@ -261,7 +261,7 @@ makeQA_HypothesisTest = function(type = NULL, level = 0.05, Xbar = NULL, sigma =
     stop("Level must be no greater than 0.5")
   }
   if(is.null(sigma)){
-    sigma = sample(seq(0, 5, 0.1), 1)
+    sigma = sample(seq(1, 5, 0.1), 1)
   }
   if(is.null(n)){
     n = sample(30:100, 1)
