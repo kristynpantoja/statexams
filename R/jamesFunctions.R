@@ -113,11 +113,11 @@ makeQA_eventprob = function(type = NULL){
             ".  The probability of B is ", probs[2],
             ".  The probability of A and B both occuring is ", probs[3],
             ".  What is the probability of A or B occurring?", sep = "")
-      ans1 = probs[4]
-      ans2 = abs(probs[1] - probs[2])
-      ans3 = probs[3]
-      ans4 = probs[1] + probs[2]
-      ans5 = 1 - probs[4]
+      ans1 = round(probs[4],3)
+      ans2 = round(abs(probs[1] - probs[2]),3)
+      ans3 = round(probs[3],3)
+      ans4 = round(probs[1] + probs[2],3)
+      ans5 = round(1 - probs[4],3)
       answers = c(ans1, ans2, ans3, ans4, ans5)
       if(length(unique(answers)) == 5){
         checkques = 1
