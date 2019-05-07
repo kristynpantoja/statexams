@@ -272,7 +272,7 @@ makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL
   if(is.null(interval)){
     sign = sample(c(-1, 1), 1)
     which.tail = sample(c(0, 1), 1)
-    interval = mean + sign * sample(seq(0, 2.5, 0.1), 1) * sd
+    interval = mean + sign * sample(seq(0.1, 2.5, 0.1), 1) * sd
     if(which.tail){
       tail = "left"
     } else{
