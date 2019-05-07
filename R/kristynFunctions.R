@@ -85,7 +85,7 @@ enumerate_QAs_for_latex = function(rearranged_QAs){
     }
     answers = paste(answers, "\n\t\\end{enumerate}")
     test = paste(test, answers, sep = "")
-    solutions = paste(solutions, "\n\t\\item", i, " . ", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
+    solutions = paste(solutions, "\n\t\\item", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
   }
   test = paste(test, "\n\\end{enumerate}\n", sep = "")
   solutions = paste(solutions, "\n\\end{enumerate}\n", sep = "")
@@ -156,6 +156,8 @@ makeQuestion_normal = function(variable, mean, sd, interval, tail = NULL){
     else stop("Need to specify a valid type of tail probability: left or right")
   }
   if(is.null(tail)) tail = 2
+
+  sd = round(sd, 3)
 
   component1 = " is normally distributed with mean "
   component2 = " and standard deviation "
