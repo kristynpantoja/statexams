@@ -125,8 +125,11 @@ export_txt = function(contents, filename){
 #'
 #' @examples QA1 = makeQA_CIprop()
 #' QA2 = makeQA_normal()
-#' QA3 = makeQA_normal()
-#' QAs = list(QA1, QA2, QA3)
+#' QA3 = makeQA_eventprob()
+#' QA4 = makeQA_ExpectedValue()
+#' QA5 = makeQA_HypothesisTest()
+#' QA6 = makeQA_ConditionalProbability()
+#' QAs = list(QA1, QA2, QA3, QA4, QA5, QA6)
 #' export_test(QAs)
 export_test = function(list_of_QAs, testfile = NULL, solutionsfile = NULL){
   list_of_QAs = rearrange(list_of_QAs) # turn into rearrange object
