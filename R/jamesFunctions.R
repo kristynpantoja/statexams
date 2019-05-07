@@ -419,36 +419,7 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   }
 }
 
-#' Rearrange questions and answers
-#'
-#' @param x list of vectors.  First element of each vector is question.
-#' Second element is correct answer.  Remaining elements are incorrect answers
-#'
-#' @return  Returns questions and answers rearranged, the answer key (letters),
-#'  the correct answers (alphanumeric), and the number of elements in each vector.
-#' @export
-#'
-#' @examples x = list(c(1, "a", "b"), c(2, "a", "b", "c"), c(3, "a", "b", "c", "d", "e"))
-#' rearrange(x)
-#'#[[1]]
-#'#[[1]][[1]]
-#'#[1] "2" "a" "c" "b"
-#'#
-#'#[[1]][[2]]
-#'#[1] "1" "b" "a"
-#'#
-#'#[[1]][[3]]
-#'#[1] "3" "b" "d" "a" "c" "e"
-#'#
-#'#
-#'#[[2]]
-#'#[1] "a" "b" "c"
-#'#
-#'#[[3]]
-#'#[1] "a" "a" "a"
-#'#
-#'#[[4]]
-#'#[1] 4 3 6
+
 rearrange = function(x){
   num_ques = length(x)
   for(i in 1:num_ques){
