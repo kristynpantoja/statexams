@@ -348,7 +348,7 @@ makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, populatio
 }
 
 
-makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
+makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                               question = NULL, answer = NULL){
   labeled_answers = list("correct_answer" = NA, "incorrect_answer1" = NA, "incorrect_answer2" = NA, "incorrect_answer3" = NA)
   # correct values
@@ -396,7 +396,7 @@ makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population
 #' @export
 #'
 #' @examples makeQA_CIprop()
-makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
+makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = NULL, individuals = "individuals",
                          question = NULL, answer = NULL){
   if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")
   if(is.null(n)) n = sample(30:100, 1)
