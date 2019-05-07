@@ -83,7 +83,7 @@ enumerate_QAs_for_latex = function(rearranged_QAs){
     for(j in 2:QAs_lengths[i]){
       answers = paste(answers, "\n\t\t\\item ", question_and_answers[j], sep = "")
     }
-    answers = paste(answers, "\n\t\\end{enumerate}[a]")
+    answers = paste(answers, "\n\t\\end{enumerate}")
     test = paste(test, answers, sep = "")
     solutions = paste(solutions, "\n\t\\item", i, " . ", rearranged_QAs[[2]][i], " : ", rearranged_QAs[[3]][i], sep = "")
   }
@@ -144,7 +144,7 @@ export_test = function(list_of_QAs, testfile = NULL, solutionsfile = NULL){
 
 # --- Functions for Creating Questions for Normal Distribution Calculations --- #
 
-makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+makeQuestion_normal = function(variable, mean, sd, interval, tail = NULL){
   # Cleaning up arguments and error-catching
   if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
@@ -187,7 +187,7 @@ makeQuestion_normal = function(variable = "X", mean = 0, sd = 1, interval, tail 
   return(question)
 }
 
-makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail = NULL){
+makeAnswers_normal = function(variable, mean, sd, interval, tail = NULL){
   # Cleaning up arguments and error-catching
   if(sd <= 0) stop("standard deviation should be a positive number")
   if(length(interval) != 1 & length(interval) != 2) stop("interval must be a vector of length 1 or 2")
@@ -280,8 +280,8 @@ makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL
     }
   }
   question = makeQuestion_normal(variable, mean, sd, interval, tail)
-  answers = makeAnswers_normal(variable, mean, sd, interval, tail)
-  return(c(question, as.character(answers)))
+  q_answers = makeAnswers_normal(variable, mean, sd, interval, tail)
+  return(c(question, as.character(q_answers)))
 }
 
 
@@ -388,14 +388,18 @@ makeAnswers_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population
 #' @export
 #'
 #' @examples makeQA_CIprop()
-makeQA_CIprop = function(n = 30, numPositive = 10, C = 0.95, population = 100, individuals = "individuals",
+makeQA_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, population = 100, individuals = "individuals",
                          question = NULL, answer = "no"){
   if(is.null(n) & !is.null(numPositive)) stop("to specify numPositive, must also specify n")
   if(is.null(n)) n = sample(30:100, 1)
   if(is.null(numPositive)) numPositive = sample(1:n, 1)
   question = makeQuestion_CIprop(n , numPositive, C = 0.95, population, individuals,
                                  question, answer)
-  answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
+  q_answers = makeAnswers_CIprop(n , numPositive, C = 0.95, population, individuals,
                                question, answer)
-  return(c(question, as.character(answers)))
+  answers = rep(NA, length(q_answers))
+  for(i in 1:length(answers)){
+    answers[i] = paste("(", q_answers[[i]][1], ", ", q_answers[[i]][2], ")", sep = "")
+  }
+  return(c(question, answers))
 }
