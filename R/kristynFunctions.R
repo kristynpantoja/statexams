@@ -57,7 +57,8 @@ process_question_contents = function(question_contents){
 #' @return a vector with first element as question, second element as correct answer, and other elements as other answer choices.
 #' @export
 #'
-#' @examples "see vignette"
+#' @examples # for a .txt file, call:
+#' # import_question(file)
 import_question = function(file){
   question_contents = import_question_raw(file)
   QA = process_question_contents(question_contents)
