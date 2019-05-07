@@ -48,7 +48,7 @@ process_question_contents = function(question_contents){
 }
 
 
-# a wrapper for importing a question and corresponding answers so that it's ready to be rearranged with other QAs
+# a wrapper for importing a quesssstion and corresponding answers so that it's ready to be rearranged with other QAs
 #' Import Your Own Question
 #'
 #' @param file a .txt file that has questions (preceded by a tab and a *Q*) and answer choices (preceded by a tab and a *A*, with correct answer choice ending in \%ans)
