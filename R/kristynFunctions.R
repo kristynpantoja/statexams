@@ -338,7 +338,7 @@ makeQuestion_CIprop = function(n = NULL, numPositive = NULL, C = 0.95, populatio
   }
 
   # confidence interval question
-  context_component3 = paste(" What is the ", C*100, "% confidence interval for the proportion of ",
+  context_component3 = paste(" What is the ", C*100, "\% confidence interval for the proportion of ",
                              individuals, component10, sep = "")
   question = paste(context_component1, context_component2, context_component3, sep = "")
   return(question)

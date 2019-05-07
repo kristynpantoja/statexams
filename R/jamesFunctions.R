@@ -384,12 +384,12 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   }
   if(type == 1){
     question = paste("A company buys resistors from vendor companies A, B, and C.  ",
-                     100*proportion[1], "% come from company A  ",
-                     100*proportion[2], "% come from comapny B, and ",
-                     100*proportion[3], "% come from company C.  If a resistor comes from company A, there is a ",
-                     100*condprob[1], "% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
-                     100*condprob[2], "% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
-                     100*condprob[3], "% chance that it is within tolerance.  If a resistor is randomly sampled, what is the probability it is within tolerance?", sep = "")
+                     100*proportion[1], "\% come from company A  ",
+                     100*proportion[2], "\% come from comapny B, and ",
+                     100*proportion[3], "\% come from company C.  If a resistor comes from company A, there is a ",
+                     100*condprob[1], "\% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
+                     100*condprob[2], "\% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
+                     100*condprob[3], "\% chance that it is within tolerance.  If a resistor is randomly sampled, what is the probability it is within tolerance?", sep = "")
 
     ans1 = round(sum(proportion*condprob), 3)
     ans2 = round(mean(condprob), 3)
@@ -401,12 +401,12 @@ makeQA_ConditionalProbability = function(proportion = NULL, condprob = NULL, typ
   }
   if(type == 2){
     question = paste("A company buys resistors from vendor companies A, B, and C.  ",
-                     100*proportion[1], "% come from company A  ",
-                     100*proportion[2], "% come from comapny B, and ",
-                     100*proportion[3], "% come from company C.  If a resistor comes from company A, there is a ",
-                     100*condprob[1], "% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
-                     100*condprob[2], "% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
-                     100*condprob[3], "% chance that it is within tolerance.  If a randomly selected resistor is within tolerance, what is the probability it came from company A?", sep = "")
+                     100*proportion[1], "\% come from company A  ",
+                     100*proportion[2], "\% come from comapny B, and ",
+                     100*proportion[3], "\% come from company C.  If a resistor comes from company A, there is a ",
+                     100*condprob[1], "\% chance that it is within tolerance.  If a resistor comes from company B, there is a ",
+                     100*condprob[2], "\% chance that it is within tolerance.  If a resistor comes from company C, there is a ",
+                     100*condprob[3], "\% chance that it is within tolerance.  If a randomly selected resistor is within tolerance, what is the probability it came from company A?", sep = "")
 
     ans1 = round(proportion[1]*condprob[1] / sum(proportion*condprob), 3)
     ans2 = condprob[1]
