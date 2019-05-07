@@ -264,7 +264,7 @@ makeAnswers_normal = function(variable, mean, sd, interval, tail = NULL){
 #' @examples makeQA_normal()
 makeQA_normal = function(variable = "X", mean = NULL, sd = NULL, interval = NULL, tail = NULL){
   if(is.null(sd)){
-    sd = sample(seq(0, 5, 0.1), 1)
+    sd = sample(seq(0.1, 5, 0.1), 1)
   }
   if(is.null(mean)){
     mean = round(sample(seq(-10, 10, 0.1),1),2)
