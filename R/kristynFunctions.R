@@ -206,7 +206,7 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
 
   if(length(interval) == 1){
     # left tail probability
-    answers[1] = round(pnorm(q = interval[1], mean, sd). 3)
+    answers[1] = round(pnorm(q = interval[1], mean, sd), 3)
     # right tail probability
     answers[2] = round(pnorm(q = interval[1], mean, sd, lower.tail = FALSE), 3)
     # z-score
@@ -233,7 +233,7 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
     labeled_answers[1] = answers[1]
     leftover_answers = answers[-1]
     for(i in 1:(length(leftover_answers))){
-      labeled_answers[i + 1] = answers[i]
+      labeled_answers[i + 1] = leftover_answers[i]
     }
   }
 
@@ -242,7 +242,7 @@ makeAnswers_normal = function(variable = "X", mean = 0, sd = 1, interval, tail =
     labeled_answers[1] = answers[2]
     leftover_answers = answers[-2]
     for(i in 1:(length(leftover_answers))){
-      labeled_answers[i + 1] = answers[i]
+      labeled_answers[i + 1] = leftover_answers[i]
     }
   }
 
