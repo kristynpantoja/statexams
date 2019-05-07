@@ -117,14 +117,16 @@ export_txt = function(contents, filename){
 #' Export Test (and Solutions!)
 #'
 #' @param list_of_QAs a list of character vectors
-#' @param rearrange boolean option to rearrange
 #' @param testfile name of test file (if none given, will be named "test.txt")
 #' @param solutionsfile name of test file (if none given, will be named "solutions.txt")
 #'
 #' @return produces the two latex files (as .txt files)
 #' @export
 #'
-#' @examples QA1 = makeQA_CIprop(); QA2 = makeQA_normal(); QA3 = makeQA_normal(); QAs = list(QA1, QA2, QA3)
+#' @examples QA1 = makeQA_CIprop()
+#' QA2 = makeQA_normal()
+#' QA3 = makeQA_normal()
+#' QAs = list(QA1, QA2, QA3)
 #' export_test(QAs)
 export_test = function(list_of_QAs, testfile = NULL, solutionsfile = NULL){
   list_of_QAs = rearrange(list_of_QAs) # turn into rearrange object
