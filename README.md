@@ -4,7 +4,7 @@ statexams is an R package for creating exams for introductory statistics courses
 
 Here are some question-generating functions:
 
-- makeQA_eventprob(type = NULL) - This function generates a question involving probabilities of events.  This question will use intersection, union, and independence of events.  You can select type = 1, 2, or 3 for different types of questions.
+- makeQA_EventProbability(type = NULL) - This function generates a question involving probabilities of events.  This question will use intersection, union, and independence of events.  You can select type = 1, 2, or 3 for different types of questions.
 - makeQA_ExpectedValue(prob = NULL, values = NULL) - This function generates an expected value question.  The values vector is the values the random variable takes, and the prob vector is the value of the pmf at these values.  You may input both, one, or neither vector.  The function automatically generates the other value.  makeQA_ExpectedValue(values = 1:6) will generate a question corresponding to an unfair 6 sided die.
 - makeQA_HypothesisTest(type = NULL, level = 0.05, Xbar = NULL, sigma = NULL, n = NULL, mu_0 = NULL) - This function generates a question about hypothesis testing.  User may provide any or all of the values.  Type 0 generates a left sided test.  Type 1 generates a right sided test, and type 2 generates a two sided test.  If not specified, an Xbar will be generate that is reasonably close to the critical value without being too close.
 - makeQA_ConditionalProbability(proportion = NULL, condprob = NULL, type = NULL) - This function will generate either a total probability (type = 1) or a Bayes theorem question (type = 2).  Proportion is a vector of unconditional probabilities (P(A), P(B), P(C)) and condprob is a vector of conditional probabilities.(P(W|A), P(W|B), P(W|C)).  Type 1 asks the student to solve for P(W), while type 2 asks for P(A|W).
@@ -26,10 +26,3 @@ After creating a set of questions, the user should put the questions in a list a
 - export_test(list_of_QAs, testfile = NULL, solutionsfile = NULL) - This function will create two .txt files that can be compiled in LaTeX: one file, called “test.txt” (unless a different name is given in the testfile argument), contains the test with all of the questions and answer choices; the other file, called “solutions.txt” (unless a different name is given in the solutionsfile argument), contains the solutions to each of the questions.
 
 
-
-
-Here is a helper function that might be useful:
-
-Rearrange(x) – Proper input is a list of vectors. Each of these vectors will have a question as the first element, the correct answer as a second element, and incorrect answer as the other elements. These vectors can be any length greater than or equal to 2.
-
-Rearrange will output a list.  The first element is a list with all  the questions randomly shuffled and their answers also randomly shuffled.  The second element is the answer key for the new exam in letter form.  The third element is the correct answer as an alphanumeric character.  For instance if the correct answer was 0.47 and it was answer choice C after rearrangement, then the second element contains a C, and the third element contains 0.47.  Rearrange also outputs a fourth element which counts the number of elements corresponding to each question.  This is useful for formatting documents.
