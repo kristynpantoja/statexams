@@ -21,10 +21,15 @@ Here are some question-generating functions:
 As previously mentioned, a question can also be imported using:
 
 - `import_question(file)` - This function inputs a .txt file that looks something like:
+
 	`*Q*What is the probability that this package is awesome?`
+	
 	`*A*0`
+	
 	`*A*0.5`
+	
 	`*A*1%ans`
+	
 As you can see, the question is in the first line of the .txt file that you want to import, and it is preceded by a tab, followed by “*Q*”. The lines that follow are answer choices, each preceded by a tab and followed by a “*A*” with the correct answer being trailed by a “%ans”
 
 After creating a set of questions, the user should put the questions in a list and call export_test() on that list. 
@@ -35,11 +40,19 @@ After creating a set of questions, the user should put the questions in a list a
 ## Example
 
 Here is an example of how to utilize the functionality of this package (from the `export_test()` function's documentation):
+
 `QA1 = makeQA_CIproportion()`
+
 `QA2 = makeQA_Normal()`
+
 `QA3 = makeQA_EventProbability()`
+
 `QA4 = makeQA_ExpectedValue()`
+
 `QA5 = makeQA_HypothesisTest()`
+
 `QA6 = makeQA_ConditionalProbability()`
+
 `QAs = list(QA1, QA2, QA3, QA4, QA5, QA6)`
+
 `export_test(QAs)`
